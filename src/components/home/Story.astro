@@ -1,0 +1,87 @@
+---
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import ProductStory, { type Chapter } from '@/components/react/ProductStory';
+import { responsiveImage } from '@/lib/images';
+import { getProduct } from '@/data/products';
+
+const p = getProduct('daisy-perfect-m')!;
+const [front, top] = p.images;
+const sizes = '(min-width: 1024px) 40vw, 80vw';
+const images = await Promise.all([
+  responsiveImage(front.src, { widths: [420, 640, 800], sizes }),
+  responsiveImage(top.src, { widths: [420, 620], sizes }),
+]);
+
+// Every figure below comes from the Perfect M spec sheet in src/data/products.ts.
+const chapters: Chapter[] = [
+  {
+    kicker: 'Tejgheaua',
+    title: 'Deschide sertarul de bani la fiecare bon.',
+    text: 'Conector RJ45 dedicat pentru sertarul de bani, cu tensiune de deschidere de 6 V. Gândită pentru activitățile cu volum mediu și mare de bonuri pe zi.',
+    figure: 'RJ45',
+    figureLabel: 'sertar de bani',
+    image: 0,
+  },
+  {
+    kicker: 'Periferice',
+    title: 'Cântar sau cititor de coduri de bare, pe același port.',
+    text: 'Portul serial RS232 conectează un cântar electronic sau un cititor de coduri de bare; portul USB o leagă de calculator, inclusiv în regim de imprimantă fiscală.',
+    figure: 'RS232',
+    figureLabel: 'cântar / cititor',
+    image: 1,
+  },
+  {
+    kicker: 'Memoria',
+    title: 'Fiecare bon, păstrat în jurnalul electronic.',
+    text: 'Jurnal electronic pe card microSD de 8 GB, cu o capacitate de 40 de milioane de linii, și memorie fiscală nevolatilă pentru 1.830 de rapoarte zilnice.',
+    figure: '8 GB',
+    figureLabel: 'jurnal electronic',
+    image: 1,
+  },
+  {
+    kicker: 'ANAF',
+    title: 'Comunicarea cu ANAF, încorporată.',
+    text: 'Modemul GSM/GPRS integrat pe placa de bază comunică cu serverul ANAF, iar modulul criptografic EAL 5+ păstrează certificatul digital al aparatului.',
+    figure: 'GPRS',
+    figureLabel: 'modem integrat',
+    image: 0,
+  },
+];
+---
+
+<section class="relative bg-paper section-y" aria-labelledby="story-title">
+  <div class="container-x">
+    <div class="grid gap-8 lg:grid-cols-12 lg:items-end">
+      <div class="lg:col-span-8">
+        <p class="eyebrow text-brand-600" data-reveal>03 — De aproape</p>
+        <h2 id="story-title" class="mt-5 text-h2 font-semibold" data-reveal style="--reveal-delay: 80">
+          {p.name}: <span class="serif-accent">centrul de comandă</span> al tejghelei.
+        </h2>
+      </div>
+      <div class="flex flex-wrap gap-3 lg:col-span-4 lg:justify-end" data-reveal style="--reveal-delay: 160">
+        <a href={`/case-de-marcat/${p.slug}/`} class="btn btn-ghost">
+          Specificații complete <ArrowRight size={18} className="btn-icon" aria-hidden="true" />
+        </a>
+      </div>
+    </div>
+
+    <div class="mt-14 lg:mt-20">
+      <ProductStory
+        client:visible
+        chapters={chapters}
+        images={images as [typeof images[0], typeof images[1]]}
+        alts={[front.alt, top.alt]}
+        productName={p.name}
+      />
+    </div>
+
+    <div class="mt-6 flex flex-col items-start justify-between gap-6 rounded-[var(--radius-card)] bg-ink-950 p-7 text-ink-100 sm:flex-row sm:items-center sm:p-9">
+      <p class="max-w-xl text-lg">
+        Vreți un {p.name} pentru magazinul dumneavoastră? Vă spunem ce mai trebuie pregătit până la primul bon.
+      </p>
+      <a href={`/contact/?interes=${encodeURIComponent(p.name)}#oferta`} class="btn btn-light shrink-0">
+        Cere ofertă pentru {p.name.replace('Daisy ', '')} <ArrowUpRight size={18} className="btn-icon" aria-hidden="true" />
+      </a>
+    </div>
+  </div>
+</section>

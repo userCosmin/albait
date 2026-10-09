@@ -1,0 +1,72 @@
+---
+import { Clock, Mail, MapPin, Phone } from 'lucide-react';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import CtaSection from '@/components/CtaSection.astro';
+import { company } from '@/data/site';
+import { breadcrumbSchema } from '@/lib/schema';
+
+const path = '/contact/';
+const crumbs = [
+  { name: 'Acasă', path: '/' },
+  { name: 'Contact', path },
+];
+const cards = [
+  { icon: Phone, label: 'Telefon', value: company.phone.display, href: company.phone.href },
+  { icon: Mail, label: 'E-mail', value: company.email, href: `mailto:${company.email}` },
+  { icon: MapPin, label: 'Adresă', value: `${company.showroom.street}, ${company.showroom.city}`, href: company.mapsUrl, external: true },
+  { icon: Clock, label: 'Program', value: company.hours.display },
+];
+---
+
+<BaseLayout
+  title="Contact și ofertă"
+  description={`Contact ALBA IT: ${company.phone.display}, ${company.email}, ${company.showroom.street}, ${company.showroom.city}. Cereți o ofertă pentru case de marcat Daisy sau servicii IT.`}
+  path={path}
+  theme="dark"
+  schema={[breadcrumbSchema(crumbs)]}
+>
+  <PageHero eyebrow="Contact" title="Vorbim? " accent="Suntem la un telefon distanță." crumbs={crumbs}>
+    <ul class="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        cards.map((c) => {
+          const Icon = c.icon;
+          const inner = (
+            <>
+              <Icon size={20} className="text-brand-300" aria-hidden="true" />
+              <span class="mt-6 block font-mono text-xs uppercase tracking-[0.12em] text-ink-400">{c.label}</span>
+              <span class="mt-1 block text-lg font-semibold tabular-nums tracking-[-0.01em]">{c.value}</span>
+            </>
+          );
+          return (
+            <li>
+              {c.href ? (
+                <a
+                  href={c.href}
+                  target={c.external ? '_blank' : undefined}
+                  rel={c.external ? 'noopener' : undefined}
+                  class="block h-full rounded-[var(--radius-card)] border border-white/10 bg-white/[0.04] p-6 transition-colors hover:bg-white/[0.08]"
+                >
+                  {inner}
+                </a>
+              ) : (
+                <div class="h-full rounded-[var(--radius-card)] border border-white/10 bg-white/[0.04] p-6">{inner}</div>
+              )}
+            </li>
+          );
+        })
+      }
+    </ul>
+  </PageHero>
+
+  <CtaSection flush />
+
+  <section class="bg-paper py-16">
+    <div class="container-x text-sm text-muted">
+      <p>
+        {company.legalName} · CUI {company.cui} · Nr. Reg. Com. {company.regCom} · Sediu social: {company.registeredOffice.street},{' '}
+        {company.registeredOffice.city}, jud. {company.registeredOffice.county}, {company.registeredOffice.postalCode}
+      </p>
+    </div>
+  </section>
+</BaseLayout>

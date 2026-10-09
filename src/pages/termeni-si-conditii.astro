@@ -1,0 +1,67 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import { company } from '@/data/site';
+import { breadcrumbSchema } from '@/lib/schema';
+
+const path = '/termeni-si-conditii/';
+const crumbs = [
+  { name: 'Acasă', path: '/' },
+  { name: 'Termeni și condiții', path },
+];
+---
+
+<BaseLayout
+  title="Termeni și condiții"
+  description="Termenii de utilizare a site-ului albait.ro, operat de ALBA IT SRL, Alba Iulia."
+  path={path}
+  theme="dark"
+  schema={[breadcrumbSchema(crumbs)]}
+>
+  <PageHero eyebrow="Informații legale" title="Termeni și condiții" lead="Ultima actualizare: 9 octombrie 2026" crumbs={crumbs} />
+
+  <section class="bg-paper section-y !pt-14 sm:!pt-20">
+    <div class="container-x">
+      <div class="prose-albait">
+        <h2 class="!mt-0">1. Despre site</h2>
+        <p>
+          Site-ul albait.ro este operat de {company.legalName}, CUI {company.cui}, Nr. Reg. Com. {company.regCom}, cu sediul în
+          {company.registeredOffice.street}, {company.registeredOffice.city}, jud. {company.registeredOffice.county}. Site-ul prezintă
+          produsele și serviciile ALBA IT; nu este un magazin online și nu se pot plasa comenzi prin el.
+        </p>
+
+        <h2>2. Informațiile despre produse</h2>
+        <p>
+          Specificațiile tehnice sunt preluate din documentația importatorului și a producătorului și au caracter informativ. Producătorul
+          poate modifica specificațiile fără notificare. Prețurile, disponibilitatea și condițiile de garanție se comunică în oferta
+          transmisă la cerere și sunt valabile doar în forma confirmată în scris de ALBA IT.
+        </p>
+
+        <h2>3. Informațiile legale generale</h2>
+        <p>
+          Explicațiile despre obligațiile legale privind casele de marcat (seria fiscală, fiscalizarea, codul QR etc.) sunt informații
+          generale, nu consultanță juridică sau fiscală. Pentru situația firmei dumneavoastră, consultați un contabil sau un specialist.
+        </p>
+
+        <h2>4. Drepturi de proprietate intelectuală</h2>
+        <p>
+          Denumirile Daisy, Compact S, Compact M, Perfect M și eXpert SX și imaginile produselor aparțin titularilor lor și sunt folosite
+          pentru prezentarea produselor distribuite. Restul conținutului site-ului aparține ALBA IT SRL.
+        </p>
+
+        <h2>5. Formularul de contact</h2>
+        <p>
+          Trimiterea formularului nu reprezintă o comandă și nu creează obligații contractuale. Datele transmise sunt prelucrate conform
+          <a href="/politica-de-confidentialitate/">politicii de confidențialitate</a>.
+        </p>
+
+        <h2>6. Litigii</h2>
+        <p>
+          Eventualele neînțelegeri se rezolvă pe cale amiabilă. Consumatorii pot apela și la procedura de soluționare alternativă a
+          litigiilor, prin <a href="https://anpc.ro/ce-este-sal/" target="_blank" rel="noopener">ANPC — SAL</a>. Se aplică legislația
+          română.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

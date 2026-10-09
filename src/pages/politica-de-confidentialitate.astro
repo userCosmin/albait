@@ -1,0 +1,84 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import { company } from '@/data/site';
+import { breadcrumbSchema } from '@/lib/schema';
+
+const path = '/politica-de-confidentialitate/';
+const crumbs = [
+  { name: 'Acasă', path: '/' },
+  { name: 'Politica de confidențialitate', path },
+];
+const updated = '9 octombrie 2026';
+---
+
+<BaseLayout
+  title="Politica de confidențialitate"
+  description="Cum prelucrează ALBA IT SRL datele personale transmise prin formularul de pe albait.ro: ce date, în ce scop, cât timp și ce drepturi aveți."
+  path={path}
+  theme="dark"
+  schema={[breadcrumbSchema(crumbs)]}
+>
+  <PageHero eyebrow="Informații legale" title="Politica de confidențialitate" lead={`Ultima actualizare: ${updated}`} crumbs={crumbs} />
+
+  <section class="bg-paper section-y !pt-14 sm:!pt-20">
+    <div class="container-x">
+      <div class="prose-albait">
+        <h2 class="!mt-0">1. Cine prelucrează datele</h2>
+        <p>
+          Operatorul datelor este {company.legalName}, CUI {company.cui}, Nr. Reg. Com. {company.regCom}, cu sediul în
+          {company.registeredOffice.street}, {company.registeredOffice.city}, jud. {company.registeredOffice.county}. Ne puteți scrie la
+          <a href={`mailto:${company.email}`}>{company.email}</a> sau ne puteți suna la <a href={company.phone.href}>{company.phone.display}</a>.
+        </p>
+
+        <h2>2. Ce date colectăm și de ce</h2>
+        <p>Colectăm doar datele pe care ni le trimiteți prin formularul de solicitare ofertă/contact:</p>
+        <ul>
+          <li>numele și, opțional, firma;</li>
+          <li>numărul de telefon și/sau adresa de e-mail;</li>
+          <li>produsul sau serviciul care vă interesează și mesajul, dacă scrieți unul;</li>
+          <li>data trimiterii, pagina de pe care ați trimis formularul și tipul de browser.</li>
+        </ul>
+        <p>
+          Le folosim pentru a vă răspunde la solicitare și, dacă doriți, pentru a vă face o ofertă. Temeiul legal este acordul
+          dumneavoastră și demersurile făcute la cererea dumneavoastră înaintea unui eventual contract (art. 6 alin. (1) lit. a) și b) din
+          Regulamentul (UE) 2016/679 — GDPR). Nu folosim datele pentru marketing și nu le vindem.
+        </p>
+
+        <h2>3. Protecție împotriva abuzului</h2>
+        <p>
+          Pentru a limita mesajele automate (spam), calculăm o amprentă criptografică a adresei IP, combinată cu data zilei. Nu păstrăm
+          adresa IP propriu-zisă, iar amprenta se schimbă în fiecare zi, deci nu poate fi folosită pentru a vă urmări.
+        </p>
+
+        <h2>4. Cookie-uri și analiză de trafic</h2>
+        <p>
+          Site-ul nu folosește cookie-uri de marketing sau de analiză și nu include instrumente de urmărire de la terți. Furnizorul de
+          găzduire poate folosi mecanisme tehnice strict necesare pentru securitatea și funcționarea site-ului.
+        </p>
+
+        <h2>5. Cine mai are acces la date</h2>
+        <p>
+          Site-ul și baza de date în care se salvează solicitările sunt găzduite de Cloudflare, Inc., care acționează ca persoană
+          împuternicită și prelucrează datele doar pentru a furniza serviciul de găzduire. Cloudflare aplică garanțiile prevăzute de GDPR
+          pentru transferurile de date, inclusiv clauzele contractuale standard ale Comisiei Europene. Notificările despre solicitări noi
+          pot fi transmise pe e-mail către adresa ALBA IT.
+        </p>
+
+        <h2>6. Cât timp păstrăm datele</h2>
+        <p>
+          Păstrăm solicitările cel mult 24 de luni de la ultima discuție cu dumneavoastră, apoi le ștergem. Dacă solicitarea devine
+          contract, datele necesare se păstrează pe durata prevăzută de legislația fiscală și contabilă.
+        </p>
+
+        <h2>7. Drepturile dumneavoastră</h2>
+        <p>Aveți dreptul să cereți accesul la datele dumneavoastră, rectificarea sau ștergerea lor, restricționarea prelucrării, portabilitatea datelor și să vă opuneți prelucrării. Vă puteți retrage oricând acordul, fără să fie afectată prelucrarea făcută înainte.</p>
+        <p>
+          Pentru oricare dintre aceste cereri, scrieți-ne la <a href={`mailto:${company.email}`}>{company.email}</a>. Aveți și dreptul să
+          depuneți o plângere la Autoritatea Națională de Supraveghere a Prelucrării Datelor cu Caracter Personal
+          (<a href="https://www.dataprotection.ro/" target="_blank" rel="noopener">dataprotection.ro</a>).
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

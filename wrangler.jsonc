@@ -1,0 +1,30 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "albait",
+  "main": "@astrojs/cloudflare/entrypoints/server",
+  "compatibility_date": "2026-10-09",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+  "preview_urls": true,
+
+  // Lead storage for the offer/contact form (src/pages/api/contact.ts).
+  // Read leads in the dashboard: Storage & Databases → D1 → albait-leads → Console.
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "albait-leads",
+      "database_id": "3b74163b-8375-4b8f-92f1-0e317c0af024",
+      "migrations_dir": "migrations"
+    }
+  ],
+
+  "vars": {
+    // Recipient of new-lead e-mails once the EMAIL binding is enabled.
+    "LEAD_NOTIFY_TO": "flavius@albait.ro",
+    "LEAD_NOTIFY_FROM": "formular@albait.ro"
+  }
+
+  // E-mail notifications (enable after albait.ro uses Cloudflare DNS and is
+  // onboarded to Email Service — see docs/deployment.md):
+  // "send_email": [{ "name": "EMAIL", "allowed_sender_addresses": ["formular@albait.ro"] }]
+}

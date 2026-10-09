@@ -1,0 +1,27 @@
+---
+import ModelFinder from '@/components/react/ModelFinder';
+import { finderModels } from '@/lib/finder';
+
+const models = await finderModels();
+---
+
+<section class="bg-paper pb-[var(--section-y)]" aria-labelledby="finder-title">
+  <div class="container-x">
+    <div class="rounded-[2rem] border border-fg/10 bg-paper-2/60 p-6 sm:p-10 lg:p-14">
+      <div class="grid gap-6 lg:grid-cols-12 lg:items-end">
+        <div class="lg:col-span-7">
+          <p class="eyebrow text-brand-600" data-reveal>02 — Ghid de alegere</p>
+          <h2 id="finder-title" class="mt-5 text-h2 font-semibold" data-reveal style="--reveal-delay: 80">
+            Ce casă de marcat <span class="serif-accent">ți se potrivește?</span>
+          </h2>
+        </div>
+        <p class="max-w-md text-muted lg:col-span-5 lg:justify-self-end" data-reveal style="--reveal-delay: 160">
+          Bifați cum lucrați. Ordonăm modelele după criteriile îndeplinite, pe baza specificațiilor oficiale ale producătorului.
+        </p>
+      </div>
+      <div class="mt-10">
+        <ModelFinder client:visible models={models} />
+      </div>
+    </div>
+  </div>
+</section>

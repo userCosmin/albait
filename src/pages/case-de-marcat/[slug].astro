@@ -1,0 +1,201 @@
+---
+import { Picture, getImage } from 'astro:assets';
+import { ArrowUpRight, Check, FileText, Phone, ExternalLink } from 'lucide-react';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import FaqList from '@/components/FaqList.astro';
+import CtaSection from '@/components/CtaSection.astro';
+import { products, capabilityLabels, type Capability } from '@/data/products';
+import { company } from '@/data/site';
+import { faq } from '@/data/faq';
+import { breadcrumbSchema, productSchema, faqSchema } from '@/lib/schema';
+
+export function getStaticPaths() {
+  return products.map((p) => ({ params: { slug: p.slug }, props: { product: p } }));
+}
+
+const { product: p } = Astro.props;
+const path = `/case-de-marcat/${p.slug}/`;
+const crumbs = [
+  { name: 'Acasă', path: '/' },
+  { name: 'Case de marcat', path: '/case-de-marcat/' },
+  { name: p.name, path },
+];
+const allCaps = Object.keys(capabilityLabels) as Capability[];
+const others = products.filter((o) => o.slug !== p.slug);
+const ldImages = await Promise.all(p.images.map((img) => getImage({ src: img.src, width: Math.min(1200, img.src.width), format: 'webp' })));
+const ogImage = ldImages[0].src;
+const faqItems = [faq.c801, faq.fiscalizare, faq.qr];
+---
+
+<BaseLayout
+  title={`${p.name} — casă de marcat cu jurnal electronic`}
+  description={`${p.name}: ${p.tagline} Specificații oficiale, manual de utilizare și ofertă de la ALBA IT, Alba Iulia.`}
+  path={path}
+  theme="dark"
+  image={ogImage}
+  schema={[productSchema(p, ldImages.map((i) => i.src)), breadcrumbSchema(crumbs), faqSchema(faqItems)]}
+>
+  <PageHero eyebrow={`Casă de marcat · ${p.brand}`} title={`${p.name}. `} accent={p.tagline} crumbs={crumbs} />
+
+  <section class="bg-paper section-y !pt-14 sm:!pt-20">
+    <div class="container-x grid gap-12 lg:grid-cols-12 lg:gap-14">
+      <!-- Gallery: scroll-snap, works without JS -->
+      <div class="lg:col-span-7">
+        <ul class="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-3 [scrollbar-width:thin]" aria-label={`Imagini ${p.name}`}>
+          {
+            p.images.map((img, i) => (
+              <li class="relative flex aspect-[5/4] w-full shrink-0 snap-center items-center justify-center overflow-hidden rounded-[var(--radius-card)] bg-studio">
+                <Picture
+                  src={img.src}
+                  alt={img.alt}
+                  widths={[480, 720, 960]}
+                  sizes="(min-width: 1024px) 55vw, 92vw"
+                  formats={['avif', 'webp']}
+                  quality={62}
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                  fetchpriority={i === 0 ? 'high' : undefined}
+                  class={
+                    img.kind === 'photo' && !img.src.src.includes('car')
+                      ? 'blend-multiply h-[88%] w-auto object-contain'
+                      : img.kind === 'photo'
+                        ? 'size-full object-cover'
+                        : 'h-[78%] w-auto object-contain drop-shadow-[0_30px_35px_rgba(11,14,19,0.3)]'
+                  }
+                />
+              </li>
+            ))
+          }
+        </ul>
+        {p.images.length > 1 && <p class="mt-2 font-mono text-xs text-muted">{p.images.length} imagini · derulați orizontal</p>}
+      </div>
+
+      <div class="lg:col-span-5">
+        <p class="text-lead">{p.summary}</p>
+
+        <h2 class="eyebrow mt-10 text-muted">Recomandată pentru</h2>
+        <ul class="mt-4 flex flex-wrap gap-2">
+          {p.bestFor.map((b) => <li class="rounded-full border border-fg/15 bg-white px-3.5 py-1.5 text-sm">{b}</li>)}
+        </ul>
+
+        <h2 class="eyebrow mt-10 text-muted">Ce poate</h2>
+        <ul class="mt-4 grid gap-2 sm:grid-cols-2">
+          {
+            allCaps.map((c) => {
+              const has = p.capabilities.includes(c);
+              return (
+                <li class:list={['flex items-center gap-2.5 text-[0.95rem]', !has && 'text-muted line-through decoration-fg/20']}>
+                  <span
+                    class:list={[
+                      'flex size-5 shrink-0 items-center justify-center rounded-full',
+                      has ? 'bg-brand-600 text-white' : 'border border-fg/15',
+                    ]}
+                    aria-hidden="true"
+                  >
+                    {has && <Check size={12} strokeWidth={3} />}
+                  </span>
+                  <span>
+                    <span class="sr-only">{has ? 'Da: ' : 'Nu: '}</span>
+                    {capabilityLabels[c]}
+                  </span>
+                </li>
+              );
+            })
+          }
+        </ul>
+
+        <div class="mt-10 flex flex-wrap gap-3">
+          <a href={`/contact/?interes=${encodeURIComponent(p.name)}#oferta`} class="btn btn-primary">
+            Solicită o ofertă <ArrowUpRight size={18} className="btn-icon" aria-hidden="true" />
+          </a>
+          <a href={company.phone.href} class="btn btn-ghost tabular-nums">
+            <Phone size={18} aria-hidden="true" /> {company.phone.display}
+          </a>
+        </div>
+        <p class="mt-4 text-sm text-muted">Prețul și disponibilitatea vi le comunicăm la cerere.</p>
+
+        <ul class="mt-10 space-y-3 border-t border-fg/10 pt-6 text-[0.95rem]">
+          <li>
+            <a href={p.manualUrl} target="_blank" rel="noopener" class="inline-flex items-center gap-2 font-medium text-brand-600 hover:underline">
+              <FileText size={18} aria-hidden="true" /> Manualul de utilizare (PDF, Zeus Service)
+            </a>
+          </li>
+          <li>
+            <a href={p.sourceUrl} target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-muted hover:underline">
+              <ExternalLink size={16} aria-hidden="true" /> Sursa specificațiilor: pagina importatorului
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Highlights -->
+    <div class="container-x mt-24 sm:mt-32">
+      <h2 class="text-h2 font-semibold" data-reveal>Pe scurt</h2>
+      <ul class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          p.highlights.map((h, i) => (
+            <li class="rounded-[var(--radius-card)] border border-fg/10 bg-white p-7" data-reveal style={`--reveal-delay: ${i * 80}`}>
+              <span class="font-mono text-xs text-brand-600">0{i + 1}</span>
+              <h3 class="mt-4 text-lg font-semibold tracking-[-0.015em]">{h.title}</h3>
+              <p class="mt-2 text-[0.95rem] text-muted">{h.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <!-- Specs -->
+    <div class="container-x mt-24 grid gap-10 sm:mt-32 lg:grid-cols-12">
+      <div class="lg:col-span-4">
+        <h2 class="text-h2 font-semibold" data-reveal>Specificații tehnice</h2>
+        <p class="mt-5 max-w-sm text-muted">Preluate din fișa importatorului și din manualul oficial în limba română.</p>
+      </div>
+      <dl class="divide-y divide-fg/10 border-y border-fg/10 lg:col-span-8">
+        {
+          p.specs.map((s) => (
+            <div class="grid gap-1 py-4 sm:grid-cols-[14rem_1fr] sm:gap-6">
+              <dt class="font-mono text-xs uppercase tracking-[0.1em] text-muted sm:pt-1">{s.label}</dt>
+              <dd class="text-[1.02rem]">{s.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+
+    <!-- Other models -->
+    <div class="container-x mt-24 sm:mt-32">
+      <div class="flex items-end justify-between gap-6">
+        <h2 class="text-h3 font-semibold">Alte modele</h2>
+        <a href="/produse/" class="link-underline text-[0.95rem] font-semibold text-brand-600">Compară toate</a>
+      </div>
+      <ul class="mt-8 grid gap-4 sm:grid-cols-3">
+        {
+          others.map((o) => (
+            <li>
+              <a href={`/case-de-marcat/${o.slug}/`} class="group flex items-center gap-5 rounded-[var(--radius-card)] border border-fg/10 bg-white p-4 transition-colors hover:border-fg/30">
+                <span class="flex size-20 shrink-0 items-center justify-center rounded-2xl bg-studio">
+                  <Picture
+                    src={o.images[0].src}
+                    alt=""
+                    widths={[160]}
+                    sizes="80px"
+                    formats={['avif', 'webp']}
+                    class={o.images[0].kind === 'photo' ? 'blend-multiply h-16 w-auto' : 'h-14 w-auto'}
+                  />
+                </span>
+                <span>
+                  <span class="block font-semibold">{o.name}</span>
+                  <span class="block text-sm text-muted">{o.tagline}</span>
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <FaqList items={faqItems} id="faq-produs" eyebrow="Înainte de primul bon" title="Întrebări despre punerea în funcțiune" />
+  <CtaSection />
+</BaseLayout>

@@ -1,0 +1,180 @@
+---
+import { Image } from 'astro:assets';
+import { Phone, ArrowUpRight } from 'lucide-react';
+import MobileMenu from '@/components/react/MobileMenu';
+import mark from '@/assets/brand/alba-it-mark.png';
+import { company, nav } from '@/data/site';
+
+interface Props {
+  theme: 'dark' | 'light';
+  path: string;
+}
+const { theme, path } = Astro.props;
+const isActive = (href: string) => path === href || (href !== '/' && path.startsWith(href));
+---
+
+<header
+  id="site-header"
+  data-theme={theme}
+  class="site-header fixed inset-x-0 top-0 z-50 h-[var(--header-h)] transition-[background-color,color,transform,box-shadow] duration-500"
+>
+  <div class="container-x flex h-full items-center gap-6">
+    <a href="/" class="group flex shrink-0 items-center gap-2.5" aria-label="ALBA IT — pagina principală">
+      <Image src={mark} alt="" width={34} height={28} densities={[1, 2, 3]} loading="eager" class="h-7 w-auto transition-transform duration-500 group-hover:-rotate-6" />
+      <span class="flex flex-col leading-none">
+        <span class="text-[1.05rem] font-bold tracking-[-0.02em]">ALBA IT</span>
+        <span class="header-sub mt-1 font-mono text-[0.62rem] uppercase tracking-[0.16em]">Alba Iulia</span>
+      </span>
+    </a>
+
+    <nav aria-label="Navigație principală" class="ml-6 hidden lg:block">
+      <ul class="flex items-center gap-1">
+        {
+          nav.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+                class="nav-link relative rounded-full px-3.5 py-2 text-[0.94rem] font-medium transition-colors"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="ml-auto flex items-center gap-2 sm:gap-3">
+      <a
+        href={company.phone.href}
+        class="phone-link hidden items-center gap-2 rounded-full px-3 py-2 text-[0.94rem] font-semibold tabular-nums sm:flex"
+      >
+        <Phone size={16} aria-hidden="true" />
+        <span>{company.phone.display}</span>
+      </a>
+      <a
+        href={company.phone.href}
+        class="phone-link flex size-11 items-center justify-center rounded-full sm:hidden"
+        aria-label={`Sună la ${company.phone.display}`}
+      >
+        <Phone size={18} aria-hidden="true" />
+      </a>
+      <a href="/contact/#oferta" class="btn btn-primary header-cta hidden !min-h-10 !px-4 !py-2.5 text-[0.9rem] md:inline-flex">
+        Solicită o ofertă
+        <ArrowUpRight size={16} className="btn-icon" aria-hidden="true" />
+      </a>
+      <div class="lg:hidden">
+        <MobileMenu
+          client:idle
+          items={nav.map((n) => ({ label: n.label, href: n.href }))}
+          phone={company.phone}
+          currentPath={path}
+        />
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    color: var(--color-fg);
+  }
+  .site-header[data-theme='dark'] {
+    color: var(--color-ink-100);
+  }
+  .site-header .header-sub {
+    color: var(--color-muted);
+  }
+  .site-header[data-theme='dark'] .header-sub {
+    color: var(--color-ink-300);
+  }
+  .nav-link:hover {
+    background: rgb(11 14 19 / 0.06);
+  }
+  .site-header[data-theme='dark'] .nav-link:hover {
+    background: rgb(255 255 255 / 0.08);
+  }
+  .nav-link[aria-current='page']::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0.2rem;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--color-brand-500);
+    transform: translateX(-50%);
+  }
+  .phone-link:hover {
+    color: var(--color-brand-600);
+  }
+  .site-header[data-theme='dark'] .phone-link:hover {
+    color: var(--color-brand-300);
+  }
+
+  /* Solid surface once the page scrolls. */
+  .site-header[data-scrolled] {
+    background: rgb(243 242 238 / 0.86);
+    box-shadow: 0 1px 0 rgb(11 14 19 / 0.08);
+    backdrop-filter: saturate(1.4) blur(16px);
+    -webkit-backdrop-filter: saturate(1.4) blur(16px);
+  }
+  .site-header[data-theme='dark'][data-scrolled] {
+    background: rgb(7 9 13 / 0.78);
+    box-shadow: 0 1px 0 rgb(255 255 255 / 0.08);
+  }
+  .site-header[data-hidden] {
+    transform: translateY(-100%);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .site-header[data-hidden] {
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  // Solid background after the first few pixels; hide while scrolling down,
+  // reveal on any upward scroll. The header turns light when it leaves a dark
+  // section marked with [data-header-dark].
+  const header = document.getElementById('site-header');
+  if (header) {
+    const initialTheme = header.dataset.theme;
+    const darkZones = Array.from(document.querySelectorAll<HTMLElement>('[data-header-dark]'));
+    let lastY = window.scrollY;
+    let ticking = false;
+    const update = () => {
+      const y = window.scrollY;
+      header.toggleAttribute('data-scrolled', y > 24);
+      const goingDown = y > lastY + 4;
+      const goingUp = y < lastY - 4;
+      if (goingDown && y > 480) header.setAttribute('data-hidden', '');
+      else if (goingUp || y < 480) header.removeAttribute('data-hidden');
+      if (darkZones.length) {
+        const probe = 32;
+        const overDark = darkZones.some((z) => {
+          const r = z.getBoundingClientRect();
+          return r.top <= probe && r.bottom >= probe;
+        });
+        header.dataset.theme = overDark ? 'dark' : 'light';
+      } else if (initialTheme) {
+        header.dataset.theme = initialTheme;
+      }
+      lastY = y;
+      ticking = false;
+    };
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(update);
+        }
+      },
+      { passive: true },
+    );
+    header.addEventListener('focusin', () => header.removeAttribute('data-hidden'));
+    update();
+  }
+</script>

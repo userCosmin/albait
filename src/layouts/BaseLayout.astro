@@ -1,0 +1,112 @@
+---
+import '@/styles/global.css';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import { company } from '@/data/site';
+import { graph, organizationSchema, websiteSchema } from '@/lib/schema';
+import ogDefault from '@/assets/brand/og-default.jpg';
+import markLogo from '@/assets/brand/alba-it-logo-official.png';
+import fontLatin from '@fontsource-variable/schibsted-grotesk/files/schibsted-grotesk-latin-wght-normal.woff2?url';
+
+interface Props {
+  title: string;
+  description: string;
+  /** page path with trailing slash, e.g. /contact/ */
+  path: string;
+  /** absolute or root-relative OG image URL */
+  image?: string;
+  /** extra JSON-LD nodes for this page */
+  schema?: object[];
+  /** header style: over a dark hero or on light paper */
+  theme?: 'dark' | 'light';
+  noindex?: boolean;
+}
+
+const { title, description, path, image, schema = [], theme = 'light', noindex = false } = Astro.props;
+const canonical = new URL(path, company.url).toString();
+const ogImage = new URL(image ?? ogDefault.src, company.url).toString();
+const fullTitle = path === '/' ? title : `${title} · ${company.brand}`;
+const jsonLd = graph(organizationSchema(markLogo.src), websiteSchema(), ...schema);
+---
+
+<!doctype html>
+<html lang="ro" data-header-theme={theme}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ro_RO" />
+    <meta property="og:site_name" content={company.brand} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="/favicon-48.png" sizes="48x48" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="preload" href={fontLatin} as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content={theme === 'dark' ? '#07090d' : '#f3f2ee'} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <slot name="head" />
+
+    <script is:inline>
+      // Opt in to reveal animations only when motion is welcome; without this
+      // class every element renders in its final, visible state.
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('js-motion');
+      }
+    </script>
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <a
+      href="#continut"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-white focus:px-5 focus:py-3 focus:font-semibold focus:text-ink-950"
+    >
+      Sari la conținut
+    </a>
+    <Header theme={theme} path={path} />
+    <main id="continut">
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      // Scroll reveals for server-rendered sections (no framework needed).
+      const els = document.querySelectorAll<HTMLElement>('[data-reveal]');
+      if (document.documentElement.classList.contains('js-motion') && 'IntersectionObserver' in window) {
+        // A mask reveal starts fully clipped, which IntersectionObserver reports
+        // as never intersecting, so we watch its parent instead.
+        const targets = new Map<Element, HTMLElement[]>();
+        els.forEach((el) => {
+          const watched = el.dataset.reveal === 'mask' && el.parentElement ? el.parentElement : el;
+          targets.set(watched, [...(targets.get(watched) ?? []), el]);
+        });
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                targets.get(e.target)?.forEach((el) => el.classList.add('is-in'));
+                io.unobserve(e.target);
+              }
+            }
+          },
+          { rootMargin: '0px 0px -12% 0px', threshold: 0 },
+        );
+        targets.forEach((_, watched) => io.observe(watched));
+      } else {
+        els.forEach((el) => el.classList.add('is-in'));
+      }
+    </script>
+  </body>
+</html>

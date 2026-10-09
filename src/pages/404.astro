@@ -1,0 +1,40 @@
+---
+import { ArrowRight } from 'lucide-react';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { products } from '@/data/products';
+---
+
+<BaseLayout
+  title="Pagina nu a fost găsită"
+  description="Pagina căutată nu există sau a fost mutată."
+  path="/404/"
+  theme="dark"
+  noindex
+>
+  <section class="relative flex min-h-[90svh] items-center overflow-hidden bg-ink-950 text-ink-100" data-header-dark>
+    <p aria-hidden="true" class="pointer-events-none absolute -right-[4vw] bottom-[-6vw] select-none text-[38vw] font-bold leading-none tracking-[-0.08em] text-white/[0.03]">
+      404
+    </p>
+    <div class="container-x relative pt-[var(--header-h)]">
+      <p class="eyebrow text-brand-300">Eroare 404</p>
+      <h1 class="mt-5 max-w-3xl text-h1 font-semibold">Pagina asta <span class="serif-accent text-brand-300">nu mai există.</span></h1>
+      <p class="mt-6 max-w-xl text-lead text-ink-300">
+        Site-ul ALBA IT a fost refăcut, iar unele adrese vechi nu mai sunt disponibile. Poate căutați una dintre paginile de mai jos.
+      </p>
+      <ul class="mt-10 flex flex-wrap gap-2">
+        <li><a href="/" class="btn btn-light">Pagina principală <ArrowRight size={18} className="btn-icon" aria-hidden="true" /></a></li>
+        <li><a href="/case-de-marcat/" class="btn btn-ghost-dark">Case de marcat</a></li>
+        <li><a href="/servicii/" class="btn btn-ghost-dark">Servicii</a></li>
+        <li><a href="/contact/" class="btn btn-ghost-dark">Contact</a></li>
+      </ul>
+      <p class="mt-10 text-sm text-ink-400">
+        Modele: {products.map((p, i) => (
+          <>
+            {i > 0 && ' · '}
+            <a href={`/case-de-marcat/${p.slug}/`} class="link-underline text-ink-300">{p.name}</a>
+          </>
+        ))}
+      </p>
+    </div>
+  </section>
+</BaseLayout>

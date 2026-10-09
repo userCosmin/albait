@@ -1,0 +1,104 @@
+---
+import { Check, Minus } from 'lucide-react';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import CtaSection from '@/components/CtaSection.astro';
+import ModelFinder from '@/components/react/ModelFinder';
+import { finderModels } from '@/lib/finder';
+import { products, capabilityLabels, type Capability } from '@/data/products';
+import { breadcrumbSchema } from '@/lib/schema';
+
+const path = '/produse/';
+const crumbs = [
+  { name: 'Acasă', path: '/' },
+  { name: 'Produse', path },
+];
+const models = await finderModels();
+
+const specRows = ['Acumulator', 'Rolă hârtie', 'Greutate', 'Dimensiuni', 'Tastatură', 'Departamente'];
+const specOf = (slug: string, label: string) => products.find((p) => p.slug === slug)?.specs.find((s) => s.label === label)?.value;
+const caps: Capability[] = ['portabil', 'alimentare-auto', 'sertar-bani', 'cantar', 'cititor-coduri', 'gprs-anaf', 'bluetooth', 'imprimanta-fiscala'];
+---
+
+<BaseLayout
+  title="Produse: compară casele de marcat Daisy"
+  description="Compară casele de marcat Daisy Compact S, Compact M, Perfect M și eXpert SX: portabilitate, sertar de bani, cântar, cititor de coduri și acumulator."
+  path={path}
+  theme="dark"
+  schema={[breadcrumbSchema(crumbs)]}
+>
+  <PageHero
+    eyebrow="Produse"
+    title="Compară și "
+    accent="alege în două minute."
+    lead="Bifați cum lucrați și vedeți imediat ce model îndeplinește criteriile. Mai jos găsiți tabelul complet de comparație."
+    crumbs={crumbs}
+  />
+
+  <section class="bg-paper section-y !pt-14 sm:!pt-20" aria-labelledby="ghid-title">
+    <div class="container-x">
+      <h2 id="ghid-title" class="sr-only">Ghid de alegere</h2>
+      <ModelFinder client:visible models={models} />
+    </div>
+
+    <div class="container-x mt-24 sm:mt-32">
+      <h2 class="text-h2 font-semibold" data-reveal>Tabel comparativ</h2>
+      <p class="mt-4 max-w-xl text-muted">Valori din fișele importatorului și din manualele oficiale. Unde producătorul nu publică o valoare, câmpul e marcat cu „—”.</p>
+      <div class="mt-10 overflow-x-auto rounded-[var(--radius-card)] border border-fg/10 bg-white" tabindex="0" role="region" aria-label="Tabel comparativ, derulabil orizontal">
+        <table class="w-full min-w-[46rem] border-collapse text-left text-[0.95rem]">
+          <caption class="sr-only">Comparație între modelele Daisy distribuite de ALBA IT</caption>
+          <thead>
+            <tr class="border-b border-fg/10">
+              <th scope="col" class="w-[22%] p-5 font-mono text-xs font-medium uppercase tracking-[0.1em] text-muted">Caracteristică</th>
+              {
+                products.map((p) => (
+                  <th scope="col" class="p-5">
+                    <a href={`/case-de-marcat/${p.slug}/`} class="font-semibold hover:text-brand-600">
+                      {p.name}
+                    </a>
+                  </th>
+                ))
+              }
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-fg/10">
+            {
+              caps.map((c) => (
+                <tr>
+                  <th scope="row" class="p-5 font-medium">{capabilityLabels[c]}</th>
+                  {products.map((p) =>
+                    p.capabilities.includes(c) ? (
+                      <td class="p-5">
+                        <Check size={18} className="text-brand-600" aria-hidden="true" />
+                        <span class="sr-only">Da</span>
+                      </td>
+                    ) : (
+                      <td class="p-5 text-muted">
+                        <Minus size={18} aria-hidden="true" />
+                        <span class="sr-only">Nu</span>
+                      </td>
+                    ),
+                  )}
+                </tr>
+              ))
+            }
+            {
+              specRows.map((label) =>
+                products.some((p) => specOf(p.slug, label)) ? (
+                  <tr>
+                    <th scope="row" class="p-5 font-medium">{label}</th>
+                    {products.map((p) => (
+                      <td class="p-5 text-muted">{specOf(p.slug, label) ?? '—'}</td>
+                    ))}
+                  </tr>
+                ) : null,
+              )
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <CtaSection />
+</BaseLayout>

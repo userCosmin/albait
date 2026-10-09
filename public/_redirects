@@ -1,0 +1,23 @@
+# Legacy albait.ro URLs (WordPress 2016–2022, OpenCart 2024) → new structure.
+# Trailing-slash variants are normalised by Workers Static Assets.
+/alege-alba-it               /despre-noi/                       301
+/alege-alba-it/              /despre-noi/                       301
+/parteneri                   /despre-noi/                       301
+/parteneri/                  /despre-noi/                       301
+/audit                       /servicii/audit-securitate-it/     301
+/audit/                      /servicii/audit-securitate-it/     301
+/configurare-servere         /servicii/configurare-servere/     301
+/configurare-servere/        /servicii/configurare-servere/     301
+/mentenanta-it               /servicii/mentenanta-it/           301
+/mentenanta-it/              /servicii/mentenanta-it/           301
+/service-hardware            /servicii/service-hardware/        301
+/service-hardware/           /servicii/service-hardware/        301
+/service-hardware-it         /servicii/service-hardware/        301
+/service-hardware-it/        /servicii/service-hardware/        301
+/echipamente-it              /servicii/                         301
+/echipamente-it/             /servicii/                         301
+/case-de-marcat/case-de-marcat-noi   /case-de-marcat/           301
+/case-de-marcat/case-de-marcat-noi/  /case-de-marcat/           301
+/index.php                   /                                  301
+/feed                        /                                  301
+/feed/                       /                                  301

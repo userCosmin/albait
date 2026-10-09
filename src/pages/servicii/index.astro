@@ -1,0 +1,58 @@
+---
+import { ArrowUpRight } from 'lucide-react';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import FaqList from '@/components/FaqList.astro';
+import CtaSection from '@/components/CtaSection.astro';
+import { services } from '@/data/services';
+import { serviceFaq } from '@/data/faq';
+import { breadcrumbSchema, faqSchema } from '@/lib/schema';
+
+const path = '/servicii/';
+const crumbs = [
+  { name: 'Acasă', path: '/' },
+  { name: 'Servicii', path },
+];
+---
+
+<BaseLayout
+  title="Servicii: service case de marcat și IT pentru firme"
+  description="Service case de marcat Daisy, mentenanță IT, service hardware, configurare servere Linux și audit de securitate IT pentru firmele din Alba Iulia. ALBA IT."
+  path={path}
+  theme="dark"
+  schema={[breadcrumbSchema(crumbs), faqSchema(serviceFaq)]}
+>
+  <PageHero
+    eyebrow="Servicii"
+    title="Partenerul IT al firmelor "
+    accent="fără departament IT."
+    lead="De la casa de marcat de la tejghea până la serverul din birou: intervenim, întreținem și vă explicăm ce facem."
+    crumbs={crumbs}
+  />
+
+  <section class="bg-paper section-y !pt-14 sm:!pt-20">
+    <div class="container-x">
+      <ol class="border-b border-fg/12">
+        {
+          services.map((s, i) => (
+            <li class="border-t border-fg/12" data-reveal style={`--reveal-delay: ${i * 60}`}>
+              <a href={`/servicii/${s.slug}/`} class="service-row group grid items-center gap-4 py-8 sm:grid-cols-[4rem_1fr_1fr_auto] sm:gap-8 sm:py-10">
+                <span class="font-mono text-sm text-muted">0{i + 1}</span>
+                <span class="text-[clamp(1.5rem,1rem+1.8vw,2.75rem)] font-semibold leading-tight tracking-[-0.03em] transition-colors group-hover:text-brand-600">
+                  {s.title}
+                </span>
+                <span class="max-w-md text-muted">{s.short}</span>
+                <span class="flex size-12 items-center justify-center rounded-full border border-fg/15 transition-all duration-500 group-hover:rotate-45 group-hover:border-transparent group-hover:bg-brand-600 group-hover:text-white">
+                  <ArrowUpRight size={20} aria-hidden="true" />
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <FaqList items={serviceFaq} id="faq-servicii" />
+  <CtaSection />
+</BaseLayout>

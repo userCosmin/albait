@@ -1,0 +1,140 @@
+---
+import { Picture } from 'astro:assets';
+import { Plus, ArrowUpRight } from 'lucide-react';
+import type { ImageMetadata } from 'astro';
+import { getProduct } from '@/data/products';
+import carMounted from '@/assets/products/compact-s-car-mounted.jpg';
+import perfectTop from '@/assets/products/perfect-m-top-cutout.png';
+import compactM from '@/assets/products/compact-m-cutout.png';
+import compactSAngle from '@/assets/products/compact-s-angle-cutout.png';
+
+interface Solution {
+  title: string;
+  text: string;
+  models: string[];
+  image: ImageMetadata;
+  alt: string;
+  photo: boolean;
+}
+
+// Matches are taken from the manufacturer's own recommendations and spec sheets.
+const solutions: Solution[] = [
+  {
+    title: 'Comerț ambulant, livrări și ridesharing',
+    text: 'Pentru cine emite bonuri din mașină sau din mers: aparat ușor, cu acumulator, care se încarcă din mașină și trimite singur rapoartele la ANAF.',
+    models: ['daisy-compact-s', 'daisy-expert-sx'],
+    image: carMounted,
+    alt: 'Casă de marcat Daisy Compact S montată pe bordul unei mașini',
+    photo: true,
+  },
+  {
+    title: 'Magazine cu cântar și coduri de bare',
+    text: 'Vânzare la gramaj, produse scanate la casă și sertar de bani care se deschide la fiecare bon.',
+    models: ['daisy-perfect-m', 'daisy-expert-sx'],
+    image: perfectTop,
+    alt: 'Daisy Perfect M văzută de sus',
+    photo: false,
+  },
+  {
+    title: 'Puncte de lucru cu multe bonuri pe zi',
+    text: 'Chioșcuri, cafenele sau magazine mici unde ritmul contează: taste mari, rolă lungă și modem integrat pentru ANAF.',
+    models: ['daisy-compact-m', 'daisy-perfect-m'],
+    image: compactM,
+    alt: 'Daisy Compact M cu taste mari',
+    photo: false,
+  },
+  {
+    title: 'Profesori care oferă meditații și alte servicii',
+    text: 'Când emiteți puține bonuri, dar trebuie să le emiteți corect: o casă de marcat compactă, ușor de folosit, care stă într-un sertar.',
+    models: ['daisy-compact-s'],
+    image: compactSAngle,
+    alt: 'Daisy Compact S văzută din lateral',
+    photo: false,
+  },
+];
+---
+
+<section class="relative overflow-hidden bg-ink-950 text-ink-100 section-y" data-header-dark aria-labelledby="solutii-title">
+  <div aria-hidden="true" class="grid-lines pointer-events-none absolute inset-0 [mask-image:linear-gradient(to_bottom,black,transparent_60%)]"></div>
+  <div class="container-x relative">
+    <div class="grid gap-8 lg:grid-cols-12 lg:items-end">
+      <div class="lg:col-span-8">
+        <p class="eyebrow text-brand-300" data-reveal>04 — Pe activități</p>
+        <h2 id="solutii-title" class="mt-5 text-h2 font-semibold" data-reveal style="--reveal-delay: 80">
+          Fiecare afacere bate bonul <span class="serif-accent text-brand-300">în ritmul ei.</span>
+        </h2>
+      </div>
+      <p class="max-w-sm text-ink-300 lg:col-span-4 lg:justify-self-end" data-reveal style="--reveal-delay: 160">
+        Nu orice casă de marcat se potrivește oricui. Iată de unde să porniți.
+      </p>
+    </div>
+
+    <div class="mt-14 border-b border-white/10 sm:mt-20">
+      {
+        solutions.map((s, i) => (
+          <details name="solutii" class="solution group border-t border-white/10" open={i === 0} data-reveal style={`--reveal-delay: ${i * 70}`}>
+            <summary class="flex cursor-pointer list-none items-center gap-5 py-7 sm:gap-8 sm:py-9 [&::-webkit-details-marker]:hidden">
+              <span class="font-mono text-sm text-ink-400">0{i + 1}</span>
+              <span class="flex-1 text-[clamp(1.35rem,1rem+1.6vw,2.6rem)] font-semibold leading-tight tracking-[-0.03em] transition-colors group-hover:text-brand-300">
+                {s.title}
+              </span>
+              <span class="flex size-11 shrink-0 items-center justify-center rounded-full border border-white/20 transition-transform duration-500 group-open:rotate-45">
+                <Plus size={18} aria-hidden="true" />
+              </span>
+            </summary>
+            <div class="grid gap-8 pb-10 sm:pl-[3.25rem] lg:grid-cols-12 lg:gap-10">
+              <div class="lg:col-span-5">
+                <p class="max-w-md text-lead text-ink-300">{s.text}</p>
+                <p class="eyebrow mt-8 text-ink-400">Modele recomandate</p>
+                <ul class="mt-3 flex flex-wrap gap-2">
+                  {s.models.map((slug) => {
+                    const m = getProduct(slug)!;
+                    return (
+                      <li>
+                        <a
+                          href={`/case-de-marcat/${m.slug}/`}
+                          class="group/link inline-flex items-center gap-2 rounded-full bg-white/[0.06] px-4 py-2.5 font-medium transition-colors hover:bg-white hover:text-ink-950"
+                        >
+                          {m.name}
+                          <ArrowUpRight size={16} aria-hidden="true" className="transition-transform group-hover/link:rotate-45" />
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+              <div class="lg:col-span-7">
+                <div class={`relative aspect-[16/9] overflow-hidden rounded-[var(--radius-card)] ${s.photo ? '' : 'flex items-center justify-center bg-ink-800'}`}>
+                  <Picture
+                    src={s.image}
+                    alt={s.alt}
+                    widths={[480, 720, 960]}
+                    sizes="(min-width: 1024px) 50vw, 90vw"
+                    formats={['avif', 'webp']}
+                    class={s.photo ? 'solution-media size-full object-cover' : 'solution-media h-[78%] w-auto object-contain drop-shadow-[0_30px_40px_rgba(0,0,0,0.6)]'}
+                  />
+                </div>
+              </div>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .solution[open] :global(.solution-media) {
+    animation: solution-in 1s var(--ease-out-expo) both;
+  }
+  @keyframes solution-in {
+    from {
+      opacity: 0;
+      transform: scale(1.06) translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>

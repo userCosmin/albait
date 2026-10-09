@@ -1,0 +1,95 @@
+---
+import { ArrowUpRight } from 'lucide-react';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import CtaSection from '@/components/CtaSection.astro';
+import { company, credentials } from '@/data/site';
+import { breadcrumbSchema } from '@/lib/schema';
+
+const path = '/despre-noi/';
+const crumbs = [
+  { name: 'Acasă', path: '/' },
+  { name: 'Despre noi', path },
+];
+const founded = new Date(company.founded);
+const facts = [
+  { label: 'Denumire', value: company.legalName },
+  { label: 'CUI', value: company.cui },
+  { label: 'Nr. Registrul Comerțului', value: company.regCom },
+  { label: 'Înregistrată', value: founded.toLocaleDateString('ro-RO', { day: 'numeric', month: 'long', year: 'numeric' }) },
+  { label: 'Sediu social', value: `${company.registeredOffice.street}, ${company.registeredOffice.city}, jud. ${company.registeredOffice.county}` },
+  { label: 'Punct de lucru', value: `${company.showroom.street}, ${company.showroom.city}` },
+  { label: 'Activitate principală', value: 'CAEN 9510 — repararea calculatoarelor și a echipamentelor de comunicații' },
+  { label: 'TVA', value: 'Plătitor de TVA din 9 ianuarie 2015' },
+];
+---
+
+<BaseLayout
+  title="Despre ALBA IT"
+  description="ALBA IT SRL, Alba Iulia: firmă înregistrată în 2014, distribuitor de case de marcat Daisy în rețeaua Zeus Service și furnizor de servicii IT pentru firme."
+  path={path}
+  theme="dark"
+  schema={[breadcrumbSchema(crumbs)]}
+>
+  <PageHero
+    eyebrow="Despre noi"
+    title="O firmă din Alba Iulia, "
+    accent="pentru firmele din Alba."
+    lead={`ALBA IT SRL funcționează din ${founded.getFullYear()}. Vindem case de marcat fiscale Daisy, le facem service și avem grijă de calculatoarele, serverele și rețelele firmelor care nu au propriul departament IT.`}
+    crumbs={crumbs}
+  />
+
+  <section class="bg-paper section-y !pt-14 sm:!pt-20">
+    <div class="container-x grid gap-14 lg:grid-cols-12">
+      <div class="prose-albait lg:col-span-7">
+        <h2 class="!mt-0">Ce facem</h2>
+        <p>
+          Pornim de la o întrebare simplă: <em>cum lucrați?</em> Un șofer de ridesharing, un magazin alimentar cu cântar și un
+          cabinet care emite câteva bonuri pe zi au nevoie de case de marcat diferite. De aceea avem în ofertă patru modele Daisy,
+          fiecare cu rostul lui, și vă explicăm diferențele pe înțeles.
+        </p>
+        <p>
+          Pe partea de IT, oferim mentenanță pe bază de plan de revizii, service hardware, instalarea și configurarea serverelor
+          Linux și audit de securitate pentru infrastructura firmei.
+        </p>
+        <h2>De ce să lucrați cu noi</h2>
+        <ul>
+          <li>Suntem în Alba Iulia, în {company.showroom.street}.</li>
+          <li>Suntem listați în rețeaua de distribuitori Zeus Service pentru județul Alba.</li>
+          <li>Clienții ne-au recomandat public: premiul „Firma de Aur” 2024, 2025 și 2026, acordat pe baza recenziilor.</li>
+          <li>Vă răspundem direct la telefon: <a href={company.phone.href}>{company.phone.display}</a>.</li>
+        </ul>
+      </div>
+
+      <aside class="lg:col-span-5">
+        <h2 class="eyebrow text-muted">Date de identificare</h2>
+        <dl class="mt-5 divide-y divide-fg/10 border-y border-fg/10">
+          {
+            facts.map((f) => (
+              <div class="py-4">
+                <dt class="font-mono text-xs uppercase tracking-[0.1em] text-muted">{f.label}</dt>
+                <dd class="mt-1">{f.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </aside>
+    </div>
+
+    <div class="container-x mt-20 grid gap-4 lg:grid-cols-3">
+      {
+        credentials.map((c) => (
+          <a href={c.href} target="_blank" rel="noopener" class="group rounded-[var(--radius-card)] border border-fg/10 bg-white p-7 transition-colors hover:border-fg/30">
+            <h3 class="text-lg font-semibold tracking-[-0.015em]">{c.title}</h3>
+            <p class="mt-2 text-[0.95rem] text-muted">{c.detail}</p>
+            <p class="mt-5 inline-flex items-center gap-1 font-mono text-xs uppercase tracking-[0.1em] text-brand-600">
+              Sursa: {c.source} <ArrowUpRight size={14} aria-hidden="true" />
+            </p>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <CtaSection />
+</BaseLayout>

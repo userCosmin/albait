@@ -1,0 +1,27 @@
+---
+import { ArrowRight, Phone } from 'lucide-react';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { company } from '@/data/site';
+---
+
+<BaseLayout
+  title="Mulțumim"
+  description="Solicitarea dumneavoastră a fost înregistrată."
+  path="/multumim/"
+  theme="dark"
+  noindex
+>
+  <section class="flex min-h-[80svh] items-center bg-ink-950 text-ink-100" data-header-dark>
+    <div class="container-x pt-[var(--header-h)]">
+      <p class="eyebrow text-brand-300">Solicitare înregistrată</p>
+      <h1 class="mt-5 max-w-3xl text-h1 font-semibold">Mulțumim! <span class="serif-accent text-brand-300">Revenim în curând.</span></h1>
+      <p class="mt-6 max-w-xl text-lead text-ink-300">
+        Vă contactăm în programul de lucru ({company.hours.display}). Dacă e urgent, sunați-ne direct.
+      </p>
+      <div class="mt-10 flex flex-wrap gap-3">
+        <a href={company.phone.href} class="btn btn-light tabular-nums"><Phone size={18} aria-hidden="true" /> {company.phone.display}</a>
+        <a href="/" class="btn btn-ghost-dark">Înapoi la pagina principală <ArrowRight size={18} className="btn-icon" aria-hidden="true" /></a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

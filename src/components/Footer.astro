@@ -1,0 +1,111 @@
+---
+import { Image } from 'astro:assets';
+import { ArrowUpRight, Mail, MapPin, Phone, Clock } from 'lucide-react';
+import mark from '@/assets/brand/alba-it-mark.png';
+import { company } from '@/data/site';
+import { products } from '@/data/products';
+import { services } from '@/data/services';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="relative overflow-hidden bg-ink-950 text-ink-300" data-header-dark>
+  <div class="container-x pt-20 pb-10 sm:pt-28">
+    <div class="grid gap-14 lg:grid-cols-12">
+      <div class="lg:col-span-4">
+        <a href="/" class="flex items-center gap-3 text-ink-100" aria-label="ALBA IT — pagina principală">
+          <Image src={mark} alt="" width={44} height={36} densities={[1, 2, 3]} class="h-9 w-auto" />
+          <span class="text-xl font-bold tracking-[-0.02em]">ALBA IT</span>
+        </a>
+        <p class="mt-6 max-w-sm leading-relaxed">
+          Case de marcat fiscale Daisy, service și soluții IT pentru firmele din Alba Iulia și județul Alba.
+        </p>
+        <a href="/contact/#oferta" class="btn btn-light mt-8">
+          Solicită o ofertă <ArrowUpRight size={18} className="btn-icon" aria-hidden="true" />
+        </a>
+      </div>
+
+      <nav aria-label="Case de marcat" class="lg:col-span-2">
+        <h2 class="eyebrow text-ink-400">Case de marcat</h2>
+        <ul class="mt-5 space-y-3">
+          {
+            products.map((p) => (
+              <li>
+                <a href={`/case-de-marcat/${p.slug}/`} class="link-underline text-ink-100">
+                  {p.name}
+                </a>
+              </li>
+            ))
+          }
+          <li><a href="/produse/" class="link-underline text-ink-100">Compară modelele</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="Servicii" class="lg:col-span-3">
+        <h2 class="eyebrow text-ink-400">Servicii</h2>
+        <ul class="mt-5 space-y-3">
+          {
+            services.map((s) => (
+              <li>
+                <a href={`/servicii/${s.slug}/`} class="link-underline text-ink-100">
+                  {s.title}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div class="lg:col-span-3">
+        <h2 class="eyebrow text-ink-400">Contact</h2>
+        <ul class="mt-5 space-y-4 text-ink-100">
+          <li class="flex gap-3">
+            <Phone size={18} className="mt-0.5 shrink-0 text-brand-400" aria-hidden="true" />
+            <a href={company.phone.href} class="link-underline tabular-nums">{company.phone.display}</a>
+          </li>
+          <li class="flex gap-3">
+            <Mail size={18} className="mt-0.5 shrink-0 text-brand-400" aria-hidden="true" />
+            <a href={`mailto:${company.email}`} class="link-underline">{company.email}</a>
+          </li>
+          <li class="flex gap-3">
+            <MapPin size={18} className="mt-0.5 shrink-0 text-brand-400" aria-hidden="true" />
+            <a href={company.mapsUrl} class="link-underline" rel="noopener" target="_blank">
+              {company.showroom.street}, {company.showroom.city}
+            </a>
+          </li>
+          <li class="flex gap-3">
+            <Clock size={18} className="mt-0.5 shrink-0 text-brand-400" aria-hidden="true" />
+            <span>{company.hours.display}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <svg aria-hidden="true" focusable="false" viewBox="0 0 1000 170" class="pointer-events-none mt-24 w-full select-none">
+      <text
+        x="500"
+        y="150"
+        text-anchor="middle"
+        fill="rgb(255 255 255 / 0.04)"
+        style="font: 700 236px var(--font-sans); letter-spacing: -0.06em"
+      >ALBA IT</text>
+    </svg>
+
+    <div class="mt-10 flex flex-col gap-6 border-t border-white/10 pt-8 text-sm lg:flex-row lg:items-center lg:justify-between">
+      <p class="leading-relaxed">
+        © {year} {company.legalName} · CUI {company.cui} · Nr. Reg. Com. {company.regCom}
+        <br class="sm:hidden" />
+        <span class="hidden sm:inline"> · </span>Sediu social: {company.registeredOffice.street}, {company.registeredOffice.city}, jud. {company.registeredOffice.county}
+      </p>
+      <ul class="flex flex-wrap gap-x-6 gap-y-2">
+        <li><a href="/politica-de-confidentialitate/" class="link-underline">Confidențialitate</a></li>
+        <li><a href="/termeni-si-conditii/" class="link-underline">Termeni</a></li>
+        <li>
+          <a href="https://anpc.ro/ce-este-sal/" rel="noopener" target="_blank" class="link-underline">
+            ANPC – Soluționarea alternativă a litigiilor
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</footer>

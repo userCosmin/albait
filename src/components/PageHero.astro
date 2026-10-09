@@ -1,0 +1,66 @@
+---
+import { ChevronRight } from 'lucide-react';
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  /** optional italic accent appended to the title */
+  accent?: string;
+  lead?: string;
+  crumbs: { name: string; path: string }[];
+}
+const { eyebrow, title, accent, lead, crumbs } = Astro.props;
+---
+
+<section class="relative isolate overflow-hidden bg-ink-950 text-ink-100" data-header-dark>
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10">
+    <div class="grid-lines absolute inset-0 [mask-image:radial-gradient(60%_80%_at_75%_0%,black,transparent)]"></div>
+    <div class="absolute -right-[10%] -top-[40%] size-[50rem] rounded-full bg-[radial-gradient(closest-side,rgb(30_143_225/0.22),transparent)]"></div>
+  </div>
+  <div class="container-x pb-16 pt-[calc(var(--header-h)+2.5rem)] sm:pb-24 lg:pt-[calc(var(--header-h)+4rem)]">
+    <nav aria-label="Breadcrumb">
+      <ol class="flex flex-wrap items-center gap-1.5 font-mono text-xs uppercase tracking-[0.12em] text-ink-400">
+        {
+          crumbs.map((c, i) => (
+            <li class="flex items-center gap-1.5">
+              {i > 0 && <ChevronRight size={12} aria-hidden="true" />}
+              {i === crumbs.length - 1 ? (
+                <span aria-current="page" class="text-ink-300">
+                  {c.name}
+                </span>
+              ) : (
+                <a href={c.path} class="link-underline hover:text-ink-100">
+                  {c.name}
+                </a>
+              )}
+            </li>
+          ))
+        }
+      </ol>
+    </nav>
+    <p class="hero-fade eyebrow mt-10 text-brand-300">{eyebrow}</p>
+    <h1 class="hero-fade mt-5 max-w-5xl text-h1 font-semibold" style="--d: 1">
+      {title}
+      {accent && <span class="serif-accent text-brand-300">{accent}</span>}
+    </h1>
+    {lead && <p class="hero-fade mt-7 max-w-2xl text-lead text-ink-300" style="--d: 2">{lead}</p>}
+    <slot />
+  </div>
+</section>
+
+<style>
+  .hero-fade {
+    animation: page-fade 1s var(--ease-out-expo) both;
+    animation-delay: calc(80ms + var(--d, 0) * 90ms);
+  }
+  @keyframes page-fade {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 16px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
