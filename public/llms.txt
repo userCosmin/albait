@@ -1,6 +1,6 @@
 # ALBA IT
 
-> ALBA IT SRL (CUI RO33901616, J2014000735017) este o firmă din Alba Iulia, județul Alba, România, înregistrată în decembrie 2014. Vinde case de marcat fiscale Daisy ca distribuitor în rețeaua Zeus Service și oferă service pentru acestea, plus servicii IT pentru firme: mentenanță IT, service hardware, configurare servere Linux și audit de securitate IT.
+> ALBA IT SRL (CUI RO33901616, J2014000735017) este o firmă din Alba Iulia, județul Alba, România, înregistrată în decembrie 2014. Vinde case de marcat fiscale Daisy și Incotex și oferă service pentru acestea, plus servicii IT pentru firme: mentenanță IT, service hardware, configurare servere Linux și audit de securitate IT.
 
 - Adresă (punct de lucru): Piața Iuliu Maniu nr. 20, Alba Iulia
 - Sediu social: Str. Emil Racoviță nr. 55, Alba Iulia, 510175
@@ -12,12 +12,12 @@
 
 ## Case de marcat
 
-Toate modelele au jurnal electronic (microSD 8 GB) și comunică cu serverele ANAF.
+Toate modelele au jurnal electronic (microSD 8 GB) și export de fișiere XML semnate pentru ANAF.
 
+- [Incotex Succes M7](https://albait.ro/case-de-marcat/incotex-succes-m7/): staționară cu acumulator (7,4 V / 1800 mAh, până la 60 h standby), 38 de taste, port sertar RJ-14, 2 porturi seriale (PC, scanner, cântar, afișaj), USB, PS/2, Ethernet; 950 g.
+- [Incotex Succes M4](https://albait.ro/case-de-marcat/incotex-succes-m4/): compactă, afișaj operator 128×64 px, 30 de taste, Wi-Fi, 2 porturi seriale (sertar, cântar, scanner, POS bancar Verifone); 700 g.
 - [Daisy Compact S](https://albait.ro/case-de-marcat/daisy-compact-s/): portabilă, ~300 g, acumulator Li-Ion 2200 mAh, încărcare micro USB / din mașină / power bank, trimite automat rapoartele XML la ANAF după raportul Z. Recomandată pentru comerț ambulant, livrări și ridesharing.
-- [Daisy Compact M](https://albait.ro/case-de-marcat/daisy-compact-m/): taste mari, acumulator Li-Ion 2200 mAh, rolă 57 mm × 30 m, modem GPRS integrat. Recomandată pentru punct fix cu volum mare de bonuri. Fără sertar, cântar sau cititor de coduri.
-- [Daisy Perfect M](https://albait.ro/case-de-marcat/daisy-perfect-m/): deschide sertarul de bani (RJ45), RS232 pentru cântar sau cititor de coduri de bare, role de până la 35 m, tasta HELP. Pentru activități cu volum mediu și mare.
-- [Daisy eXpert SX](https://albait.ro/case-de-marcat/daisy-expert-sx/): punct fix sau ambulant, acumulator NiMH 1800 mAh, RS232 pentru cântar sau cititor de coduri, fără ieșire pentru sertar de bani.
+- [Daisy eXpert SX-02](https://albait.ro/case-de-marcat/daisy-expert-sx/): punct fix sau ambulant, acumulator NiMH 1800 mAh, RS232 pentru cântar sau cititor de coduri, modem GSM/GPRS, fără ieșire pentru sertar de bani.
 - [Comparație între modele](https://albait.ro/produse/)
 - [Ghid: ce trebuie să știți înainte să cumpărați o casă de marcat](https://albait.ro/case-de-marcat/)
 

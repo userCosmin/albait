@@ -2,8 +2,6 @@ import { getImage } from 'astro:assets';
 import { products } from '@/data/products';
 import type { FinderModel } from '@/components/react/ModelFinder';
 
-// Manufacturer descriptions recommend these models for high daily receipt volume.
-const HIGH_VOLUME = new Set(['daisy-compact-m', 'daisy-perfect-m']);
 
 export async function finderModels(): Promise<FinderModel[]> {
   return Promise.all(
@@ -15,7 +13,6 @@ export async function finderModels(): Promise<FinderModel[]> {
         name: p.name,
         tagline: p.tagline,
         capabilities: p.capabilities,
-        volume: HIGH_VOLUME.has(p.slug),
         keyFigures: p.keyFigures,
         image: {
           src: opt.src,

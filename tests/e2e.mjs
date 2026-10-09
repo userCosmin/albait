@@ -26,7 +26,7 @@ const errors = [];
   const first = async () => (await p.locator('ul li h3').first().textContent())?.trim();
   const before = await first();
   await p.getByRole('button', { name: /Am sertar de bani/ }).click(); await p.waitForTimeout(900);
-  ok(`finder ranks Perfect M first for "sertar" (was ${before})`, (await first()) === 'Daisy Perfect M');
+  ok(`finder ranks a drawer-capable model first for "sertar" (was ${before})`, ['Incotex Succes M7', 'Incotex Succes M4'].includes(await first()));
   await p.getByRole('button', { name: /Lucrez pe drum/ }).click(); await p.waitForTimeout(600);
   ok('finder reports no full match for sertar+mobil', (await p.locator('[aria-live=polite]').first().textContent()).includes('Niciun model'));
   await p.close(); }

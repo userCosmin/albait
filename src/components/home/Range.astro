@@ -3,18 +3,18 @@ import { Picture } from 'astro:assets';
 import { ArrowUpRight } from 'lucide-react';
 import { products } from '@/data/products';
 import { services } from '@/data/services';
-import compactM from '@/assets/products/compact-m-cutout.png';
+import succesM7 from '@/assets/products/succes-m7-cutout.webp';
 import expertTop from '@/assets/products/expert-sx-top.jpg';
 
 const itServices = services.filter((s) => s.slug !== 'service-case-de-marcat');
 const ticker = [
-  'Daisy Compact S',
+  'Incotex Succes M7',
   'Jurnal electronic 8 GB',
-  'Daisy Compact M',
+  'Incotex Succes M4',
   'Raportare XML la ANAF',
-  'Daisy Perfect M',
+  'Daisy Compact S',
   'Sertar · cântar · cititor coduri',
-  'Daisy eXpert SX',
+  'Daisy eXpert SX-02',
   'Service în Alba Iulia',
   'Mentenanță IT',
   'Servere Linux',
@@ -45,7 +45,7 @@ const ticker = [
         </h2>
       </div>
       <p class="max-w-md text-lead text-muted lg:col-span-5 lg:justify-self-end" data-reveal style="--reveal-delay: 160">
-        Patru case de marcat Daisy cu jurnal electronic, service pentru ele și servicii IT pentru firme. Puțin, clar și explicat pe înțeles.
+        Patru case de marcat Daisy și Incotex cu jurnal electronic, service pentru ele și servicii IT pentru firme. Puțin, clar și explicat pe înțeles.
       </p>
     </div>
 
@@ -61,15 +61,15 @@ const ticker = [
         <div class="flex items-start justify-between gap-6">
           <div>
             <p class="eyebrow text-brand-300">Case de marcat fiscale</p>
-            <h3 class="mt-4 max-w-md text-h3 font-semibold">Patru modele Daisy, de la buzunar la tejghea.</h3>
+            <h3 class="mt-4 max-w-md text-h3 font-semibold">Patru modele, de la buzunar la tejghea.</h3>
           </div>
           <span class="tile-arrow flex size-12 shrink-0 items-center justify-center rounded-full border border-white/20">
             <ArrowUpRight size={20} aria-hidden="true" />
           </span>
         </div>
         <Picture
-          src={compactM}
-          alt="Casa de marcat Daisy Compact M"
+          src={succesM7}
+          alt="Casa de marcat Incotex Succes M7"
           widths={[480, 720, 960]}
           sizes="(min-width: 1024px) 50vw, 90vw"
           formats={['avif', 'webp']}
@@ -78,7 +78,7 @@ const ticker = [
         <ul class="flex flex-wrap gap-2">
           {
             products.map((p) => (
-              <li class="rounded-full border border-white/15 px-3.5 py-1.5 text-sm text-ink-100">{p.name.replace('Daisy ', '')}</li>
+              <li class="rounded-full border border-white/15 px-3.5 py-1.5 text-sm text-ink-100">{p.model}</li>
             ))
           }
         </ul>

@@ -5,6 +5,8 @@
 //   black (soft shadows survive), and a thin band around the background is
 //   "unmultiplied" against white so anti-aliased edges don't leave a light fringe.
 // - Photos: re-encoded only; Astro converts them to AVIF/WebP at build.
+// - Incotex Succes M7/M4 and Daisy eXpert SX-02 cutouts come ready-made (transparent WebP from the
+//   owner's albait-website.pages.dev) and are copied as-is.
 // - Brand: extracts the official triangle mark from the official logo.
 //
 // Run with `npm run images`. Output goes to src/assets/ and public/ and is committed.
@@ -17,9 +19,6 @@ const OUT = 'src/assets';
 const cutouts = [
   { src: 'products/compact-s-render.jpg', out: 'products/compact-s-cutout.png' },
   { src: 'products/compact-s-angle.jpg', out: 'products/compact-s-angle-cutout.png' },
-  { src: 'products/compact-m.jpg', out: 'products/compact-m-cutout.png' },
-  { src: 'products/perfect-m.jpg', out: 'products/perfect-m-cutout.png' },
-  { src: 'products/perfect-m-top.jpg', out: 'products/perfect-m-top-cutout.png' },
 ];
 
 const photos = [
@@ -28,7 +27,6 @@ const photos = [
   'expert-sx.jpg',
   'expert-sx-front.jpg',
   'expert-sx-top.jpg',
-  'compact-m-back.jpg',
 ];
 
 const FLOOD_MIN = 205; // min(r,g,b) a pixel needs to be considered background
@@ -186,7 +184,7 @@ async function ogImage() {
     <rect width="100%" height="100%" fill="#07090d"/>
     <rect width="100%" height="100%" fill="url(#g)"/>
     <text x="72" y="250" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="66" font-weight="700" fill="#e9edf2" letter-spacing="-2">Case de marcat</text>
-    <text x="72" y="326" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="66" font-weight="700" fill="#e9edf2" letter-spacing="-2">Daisy &amp; service</text>
+    <text x="72" y="326" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="66" font-weight="700" fill="#e9edf2" letter-spacing="-2">fiscale &amp; service</text>
     <text x="72" y="402" font-family="Georgia, serif" font-style="italic" font-size="62" fill="#8ccbff">în Alba Iulia.</text>
     <text x="72" y="540" font-family="Menlo, monospace" font-size="22" fill="#9aa4b2" letter-spacing="3">ALBA IT · 0758 343 653 · ALBAIT.RO</text>
   </svg>`);
@@ -208,6 +206,11 @@ await Promise.all(cutouts.map(cutout));
 await Promise.all(
   photos.map((p) =>
     sharp(`${SRC}/products/${p}`).jpeg({ quality: 92, mozjpeg: true }).toFile(`${OUT}/products/${p}`),
+  ),
+);
+await Promise.all(
+  ['succes-m7', 'succes-m4', 'expert-sx-02'].map((n) =>
+    sharp(`${SRC}/products/${n}.webp`).webp({ lossless: true }).toFile(`${OUT}/products/${n}-cutout.webp`),
   ),
 );
 await brand();

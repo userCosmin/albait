@@ -2,10 +2,10 @@
 // instant feedback and by the API route as the source of truth.
 
 export const interestOptions = [
+  'Incotex Succes M7',
+  'Incotex Succes M4',
   'Daisy Compact S',
-  'Daisy Compact M',
-  'Daisy Perfect M',
-  'Daisy eXpert SX',
+  'Daisy eXpert SX-02',
   'Nu știu încă — vreau o recomandare',
   'Service case de marcat',
   'Servicii IT pentru firmă',

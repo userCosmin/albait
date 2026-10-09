@@ -20,7 +20,9 @@ Document de lucru pentru albait.ro. Data cercetării: 9 octombrie 2026.
 | ANAF — `webservicesp.anaf.ro/api/PlatitorTvaRest/v9/tva` (CUI 33901616, interogat 09.10.2026) | Denumire, CUI, Nr. Reg. Com. J2014000735017, sediu social Str. Emil Racoviță 55, 510175 Alba Iulia, înregistrare 16.12.2014, CAEN 9510, plătitor TVA din 09.01.2015, TVA la încasare, activ |
 | cauta.ro/companies/33901616-alba-it-srl | Aceleași date; 2 angajați (2025) — **nefolosit pe site** |
 | zeusservice.ro/retea-parteneri-zeusservice | ALBA IT SRL, Str. Emil Racoviță 55, 0758.343.653 — distribuitor pentru **Expert SX, Compact M 01, Perfect M 02, Compact S 01** (nu Expert L, nu Beko X30TR) |
-| zeusservice.ro — paginile de produs + manualele PDF în limba română | Specificațiile tehnice ale celor patru modele |
+| zeusservice.ro — paginile de produs + manualele PDF în limba română | Specificațiile Daisy Compact S și eXpert SX-02 |
+| milo-trading.ro — paginile Incotex Succes M7/M4 + manualele PDF | Specificațiile Incotex Succes M7 și M4 |
+| albait-website.pages.dev/case-de-marcat | Lista de modele stabilită de proprietar; decupajele de produs |
 | Wayback: albait.ro 2021 (contact, servicii) | Telefon 0758.343.653, office@albait.ro, flavius@albait.ro, servicii IT (mentenanță, service hardware, configurare servere, audit) |
 | Wayback: albait.ro 2024 (contact) | Piața Iuliu Maniu 20, Alba Iulia; 0758343653; L–V 9:00–16:00; flavius@albait.ro; logo |
 | firmadeaur.ro/company/alba-it-srl-vanzari-case-de-marcat-1974418 | „ALBA IT SRL — Vânzări Case de Marcat”, Piața Iuliu Maniu 20; premiul Firma de Aur 2024, 2025, 2026 (pe baza recenziilor; 5/5 din 11 recenzii Google) |
@@ -42,12 +44,20 @@ Document de lucru pentru albait.ro. Data cercetării: 9 octombrie 2026.
 
 ## 4. Inventar produse și servicii (folosit pe site)
 
-| Produs | Profil (conform producătorului) | Sursă |
+**Lista de modele este cea stabilită de proprietar** pe https://albait-website.pages.dev/case-de-marcat (actualizare 9.10.2026): Succes M7, Succes M4, Compact S, Expert SX-02. Daisy Compact M și Perfect M au fost scoase din ofertă (redirect 301 spre `/case-de-marcat/`).
+
+| Produs | Profil | Sursa specificațiilor |
 | --- | --- | --- |
-| Daisy Compact S | portabilă, ~300 g, Li-Ion 2200 mAh, ridesharing/ambulant, XML automat la ANAF după raportul Z, aplicațiile Daisy Ride / Daisy XML | Zeus + manual |
-| Daisy Compact M | punct fix cu volum mare, taste mari, rolă 30 m, GPRS, aviz 42/24.08.2018; fără sertar/cântar/cititor | Zeus + manual |
-| Daisy Perfect M | volum mediu-mare, role până la 35 m, sertar RJ45, RS232 cântar/cititor, tasta HELP | Zeus + manual |
-| Daisy eXpert SX | punct fix sau ambulant, NiMH 1800 mAh, RS232 cântar/cititor, fără sertar, GPRS | Zeus + manual |
+| Incotex Succes M7 | staționară cu acumulator 7,4 V/1800 mAh (60 h standby), 38 taste, sertar RJ-14, 2 × serial RJ-11, USB, PS/2, Ethernet, 223×196×80 mm, 950 g | milo-trading.ro (importator Incotex) + manualul SUCCES M7 2018 |
+| Incotex Succes M4 | staționară cu acumulator, afișaj operator 128×64, 30 taste, 2 × serial RJ-45 (sertar, cântar, scanner, POS Verifone), Wi-Fi, ETH opțional, 700 g | milo-trading.ro + manualul INCOTEX 777 (Succes M4) 2019 |
+| Daisy Compact S | portabilă, ~300 g, Li-Ion 2200 mAh, XML automat la ANAF după raportul Z | Zeus Service + manual |
+| Daisy eXpert SX-02 | punct fix sau ambulant, NiMH 1800 mAh, RS232 cântar/cititor, fără sertar, GPRS | Zeus Service + manual |
+
+Imagini: Succes M7, Succes M4 și eXpert SX-02 — decupajele (WebP transparent) de pe albait-website.pages.dev; Compact S și fotografiile secundare — Zeus Service.
+
+Discrepanțe între sursele Incotex (am folosit manualul): Succes M4 acumulator 1900 mAh (pagina) vs 1800 mAh (manual); adâncime 105 mm (pagina) vs 111 mm (manual).
+
+Specificații de pe albait-website.pages.dev **nepreluate** pentru că nu apar în documentația importatorilor: „SAM cryptocard FIPS 140-2” la Compact S/eXpert SX (Zeus indică EAL 5+), „1,2 milioane bonuri”, „Wi-Fi opțional” la Compact S (Zeus: Wi-Fi inactiv), „cea mai mică casă de marcat din România”.
 
 Servicii: service case de marcat · mentenanță IT · service hardware · configurare servere și rețele · audit de securitate IT.
 
@@ -123,7 +133,8 @@ Excluse: WebGL/3D fals, scroll-jacking, video autoplay, rotații ample.
 3. Dacă **service-ul/fiscalizarea** sunt făcute direct de ALBA IT sau prin unitatea de service a Zeus Service (formularea de pe site e prudentă: „service și mentenanță pentru modelele distribuite”).
 4. Dacă **serviciile IT** (mentenanță, servere, audit) sunt încă oferite (sursa este site-ul din 2021 + CAEN 9510).
 5. Dacă se doresc **prețuri publice** (Daisy Tech afișează 730/760 lei pentru Compact S/M; nu le-am preluat).
-6. **Dreptul de folosire a fotografiilor** Daisy de pe zeusservice.ro (uzual permis distribuitorilor; de confirmat cu Zeus Service).
+6. **Dreptul de folosire a fotografiilor** Daisy (Zeus Service) și Incotex (Milo Trading 2000) — uzual permis distribuitorilor; de confirmat.
+11. Dacă ALBA IT este partener al Milo Trading 2000 pentru Incotex (pe pages.dev apar „Parteneri autorizați”, fără nume); site-ul nou nu afirmă statutul de distribuitor autorizat Incotex.
 7. Dacă se mai vând **calculatoare/echipamente IT refurbished, POS, cântare** (catalogul OpenCart din 2024).
 8. Logo vectorial (SVG/AI) — există doar un PNG 512×512.
 9. Perioada de păstrare a solicitărilor (am propus 24 de luni în politica de confidențialitate).

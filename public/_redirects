@@ -21,3 +21,18 @@
 /index.php                   /                                  301
 /feed                        /                                  301
 /feed/                       /                                  301
+
+# Models no longer sold (only ever published on the workers.dev preview)
+/case-de-marcat/daisy-compact-m/    /case-de-marcat/                    301
+/case-de-marcat/daisy-perfect-m/    /case-de-marcat/                    301
+# Product URLs used on albait-website.pages.dev
+/case-de-marcat/succes-m7           /case-de-marcat/incotex-succes-m7/  301
+/case-de-marcat/succes-m7/          /case-de-marcat/incotex-succes-m7/  301
+/case-de-marcat/succes-m4           /case-de-marcat/incotex-succes-m4/  301
+/case-de-marcat/succes-m4/          /case-de-marcat/incotex-succes-m4/  301
+/case-de-marcat/compact-s           /case-de-marcat/daisy-compact-s/    301
+/case-de-marcat/compact-s/          /case-de-marcat/daisy-compact-s/    301
+/case-de-marcat/expert-sx-02        /case-de-marcat/daisy-expert-sx/    301
+/case-de-marcat/expert-sx-02/       /case-de-marcat/daisy-expert-sx/    301
+/termeni-conditii                   /termeni-si-conditii/               301
+/confidentialitate                  /politica-de-confidentialitate/     301

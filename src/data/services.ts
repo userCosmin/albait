@@ -17,9 +17,9 @@ export const services: Service[] = [
   {
     slug: 'service-case-de-marcat',
     title: 'Service case de marcat',
-    short: 'Asistență pentru casele de marcat Daisy pe care le distribuim.',
+    short: 'Asistență pentru casele de marcat Daisy și Incotex pe care le vindem.',
     intro:
-      'ALBA IT vinde case de marcat Daisy ca distribuitor în rețeaua Zeus Service și oferă, alături de ele, service și mentenanță. Vă ajutăm cu punerea în funcțiune, cu întrebările despre rapoarte și cu intervențiile de care aveți nevoie pe durata utilizării.',
+      'ALBA IT vinde case de marcat Daisy și Incotex și oferă, alături de ele, service și mentenanță. Vă ajutăm cu punerea în funcțiune, cu întrebările despre rapoarte și cu intervențiile de care aveți nevoie pe durata utilizării.',
     points: [
       'Consultanță pentru alegerea modelului potrivit activității',
       'Explicarea pașilor pentru obținerea seriei fiscale și fiscalizare',

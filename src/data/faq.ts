@@ -12,11 +12,11 @@ type FaqKey = 'who' | 'models' | 'c801' | 'fiscalizare' | 'qr' | 'mobile' | 'per
 export const faq: Record<FaqKey, FaqItem> = {
   who: {
     q: 'Ce face ALBA IT?',
-    a: 'ALBA IT SRL este o firmă din Alba Iulia, înregistrată în 2014, care vinde case de marcat fiscale Daisy ca distribuitor în rețeaua Zeus Service și oferă service pentru acestea, plus servicii IT pentru firme: mentenanță, service hardware, configurare servere și audit de securitate.',
+    a: 'ALBA IT SRL este o firmă din Alba Iulia, înregistrată în 2014, care vinde case de marcat fiscale Daisy și Incotex și oferă service pentru acestea, plus servicii IT pentru firme: mentenanță, service hardware, configurare servere și audit de securitate.',
   },
   models: {
     q: 'Ce modele de case de marcat vindeți?',
-    a: 'Patru modele Daisy, toate cu jurnal electronic și modem pentru comunicarea cu ANAF: Compact S (portabilă, pentru comerț ambulant și ridesharing), Compact M (punct fix cu volum mare de bonuri), Perfect M (sertar de bani, cântar și cititor de coduri de bare) și eXpert SX (punct fix sau ambulant, cu cântar și cititor de coduri).',
+    a: 'Patru modele, toate cu jurnal electronic și export XML pentru ANAF: Incotex Succes M7 (staționară, 38 de taste, sertar, cântar, scanner, Ethernet), Incotex Succes M4 (compactă, afișaj operator mare, Wi-Fi, POS bancar), Daisy Compact S (portabilă, pentru comerț ambulant și ridesharing) și Daisy eXpert SX-02 (punct fix sau ambulant, cu cântar și cititor de coduri).',
   },
   c801: {
     q: 'Cum obțin seria fiscală pentru casa de marcat?',
@@ -38,7 +38,7 @@ export const faq: Record<FaqKey, FaqItem> = {
   },
   periferice: {
     q: 'Ce casă de marcat se conectează la sertar de bani, cântar sau cititor de coduri de bare?',
-    a: 'Daisy Perfect M deschide sertarul de bani (conector RJ45) și se conectează prin RS232 la cântar electronic sau cititor de coduri de bare. Daisy eXpert SX se conectează la cântar și cititor de coduri, dar nu are ieșire pentru sertar de bani. Compact M nu are aceste conexiuni.',
+    a: 'Incotex Succes M7 are port dedicat pentru sertarul de bani (RJ-14) și două porturi seriale pentru cântar, scanner sau PC. Incotex Succes M4 conectează prin cele două porturi seriale sertarul, cântarul, scannerul sau un POS bancar Verifone. Daisy eXpert SX-02 se conectează la cântar și cititor de coduri, dar nu are ieșire pentru sertar de bani.',
   },
   zona: {
     q: 'Unde vă găsesc?',

@@ -17,12 +17,12 @@ const models = await finderModels();
 
 const specRows = ['Acumulator', 'Rolă hârtie', 'Greutate', 'Dimensiuni', 'Tastatură', 'Departamente'];
 const specOf = (slug: string, label: string) => products.find((p) => p.slug === slug)?.specs.find((s) => s.label === label)?.value;
-const caps: Capability[] = ['portabil', 'alimentare-auto', 'sertar-bani', 'cantar', 'cititor-coduri', 'gprs-anaf', 'bluetooth', 'imprimanta-fiscala'];
+const caps: Capability[] = ['portabil', 'alimentare-auto', 'sertar-bani', 'cantar', 'cititor-coduri', 'gprs-anaf', 'ethernet', 'wifi', 'bluetooth', 'imprimanta-fiscala'];
 ---
 
 <BaseLayout
   title="Produse: compară casele de marcat Daisy"
-  description="Compară casele de marcat Daisy Compact S, Compact M, Perfect M și eXpert SX: portabilitate, sertar de bani, cântar, cititor de coduri și acumulator."
+  description="Compară casele de marcat Incotex Succes M7, Succes M4, Daisy Compact S și eXpert SX-02: portabilitate, sertar, cântar, cititor de coduri, rețea."
   path={path}
   theme="dark"
   schema={[breadcrumbSchema(crumbs)]}
@@ -46,7 +46,7 @@ const caps: Capability[] = ['portabil', 'alimentare-auto', 'sertar-bani', 'canta
       <p class="mt-4 max-w-xl text-muted">Valori din fișele importatorului și din manualele oficiale. Unde producătorul nu publică o valoare, câmpul e marcat cu „—”.</p>
       <div class="mt-10 overflow-x-auto rounded-[var(--radius-card)] border border-fg/10 bg-white" tabindex="0" role="region" aria-label="Tabel comparativ, derulabil orizontal">
         <table class="w-full min-w-[46rem] border-collapse text-left text-[0.95rem]">
-          <caption class="sr-only">Comparație între modelele Daisy distribuite de ALBA IT</caption>
+          <caption class="sr-only">Comparație între casele de marcat vândute de ALBA IT</caption>
           <thead>
             <tr class="border-b border-fg/10">
               <th scope="col" class="w-[22%] p-5 font-mono text-xs font-medium uppercase tracking-[0.1em] text-muted">Caracteristică</th>

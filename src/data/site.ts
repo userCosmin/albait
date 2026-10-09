@@ -39,7 +39,7 @@ export const credentials = [
   {
     title: 'Distribuitor în rețeaua Zeus Service',
     detail:
-      'Listat în rețeaua de parteneri Zeus Service, județul Alba, pentru Daisy eXpert SX, Compact M, Perfect M și Compact S.',
+      'Listat în rețeaua de parteneri Zeus Service (importatorul Daisy), județul Alba.',
     href: 'https://www.zeusservice.ro/retea-parteneri-zeusservice',
     source: 'zeusservice.ro',
   },

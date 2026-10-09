@@ -4,8 +4,8 @@ import { Plus, ArrowUpRight } from 'lucide-react';
 import type { ImageMetadata } from 'astro';
 import { getProduct } from '@/data/products';
 import carMounted from '@/assets/products/compact-s-car-mounted.jpg';
-import perfectTop from '@/assets/products/perfect-m-top-cutout.png';
-import compactM from '@/assets/products/compact-m-cutout.png';
+import succesM7 from '@/assets/products/succes-m7-cutout.webp';
+import succesM4 from '@/assets/products/succes-m4-cutout.webp';
 import compactSAngle from '@/assets/products/compact-s-angle-cutout.png';
 
 interface Solution {
@@ -29,18 +29,18 @@ const solutions: Solution[] = [
   },
   {
     title: 'Magazine cu cântar și coduri de bare',
-    text: 'Vânzare la gramaj, produse scanate la casă și sertar de bani care se deschide la fiecare bon.',
-    models: ['daisy-perfect-m', 'daisy-expert-sx'],
-    image: perfectTop,
-    alt: 'Daisy Perfect M văzută de sus',
+    text: 'Vânzare la gramaj și produse scanate la casă: aparate cu porturi pentru cântar electronic și cititor de coduri de bare.',
+    models: ['incotex-succes-m7', 'incotex-succes-m4', 'daisy-expert-sx'],
+    image: succesM7,
+    alt: 'Incotex Succes M7 cu tastatură de 38 de taste',
     photo: false,
   },
   {
-    title: 'Puncte de lucru cu multe bonuri pe zi',
-    text: 'Chioșcuri, cafenele sau magazine mici unde ritmul contează: taste mari, rolă lungă și modem integrat pentru ANAF.',
-    models: ['daisy-compact-m', 'daisy-perfect-m'],
-    image: compactM,
-    alt: 'Daisy Compact M cu taste mari',
+    title: 'Tejghea cu sertar de bani și POS bancar',
+    text: 'Sertarul se deschide la fiecare bon, iar Succes M4 se poate lega și de un POS bancar Verifone prin portul serial.',
+    models: ['incotex-succes-m7', 'incotex-succes-m4'],
+    image: succesM4,
+    alt: 'Incotex Succes M4 roșu cu negru',
     photo: false,
   },
   {

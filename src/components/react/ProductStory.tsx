@@ -8,14 +8,14 @@ export interface Chapter {
   text: string;
   figure: string;
   figureLabel: string;
-  /** which of the two product images to show */
-  image: 0 | 1;
+  /** index into `images` */
+  image: number;
 }
 
 interface Props {
   chapters: Chapter[];
-  images: [ResponsiveImage, ResponsiveImage];
-  alts: [string, string];
+  images: ResponsiveImage[];
+  alts: string[];
   productName: string;
 }
 

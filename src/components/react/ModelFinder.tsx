@@ -2,15 +2,13 @@ import { useMemo, useState } from 'react';
 import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from 'motion/react';
 import { ArrowUpRight, Check, Minus } from 'lucide-react';
 
-export type Need = 'mobil' | 'sertar' | 'cantar' | 'coduri' | 'volum';
+export type Need = 'mobil' | 'sertar' | 'cantar' | 'coduri' | 'retea';
 
 export interface FinderModel {
   slug: string;
   name: string;
   tagline: string;
   capabilities: string[];
-  /** manufacturer recommends it for high receipt volume */
-  volume: boolean;
   keyFigures: { value: string; label: string }[];
   image: { src: string; srcSet: string; width: number; height: number; alt: string; kind: 'cutout' | 'photo' };
 }
@@ -45,11 +43,11 @@ const needs: { id: Need; label: string; hint: string; test: (m: FinderModel) => 
     missing: 'nu se conectează la cititor de coduri',
   },
   {
-    id: 'volum',
-    label: 'Emit multe bonuri',
-    hint: 'volum mare zilnic',
-    test: (m) => m.volume,
-    missing: 'nu e recomandată pentru volum mare',
+    id: 'retea',
+    label: 'Vreau conectare la rețea',
+    hint: 'Ethernet sau Wi-Fi',
+    test: (m) => m.capabilities.includes('ethernet') || m.capabilities.includes('wifi'),
+    missing: 'fără Ethernet sau Wi-Fi',
   },
 ];
 
@@ -114,7 +112,7 @@ export default function ModelFinder({ models }: { models: FinderModel[] }) {
 
       <p className="mt-6 min-h-[1.5rem] text-[0.95rem]" aria-live="polite">
         {selected.length === 0
-          ? 'Toate cele patru modele au jurnal electronic și comunicare cu ANAF.'
+          ? 'Toate cele patru modele au jurnal electronic și export XML pentru ANAF.'
           : best.length
             ? `${best.length === 1 ? 'Un model îndeplinește' : `${best.length} modele îndeplinesc`} toate criteriile: ${best.map((b) => b.m.name).join(', ')}.`
             : 'Niciun model nu le îndeplinește pe toate — sunați-ne și găsim împreună varianta potrivită.'}

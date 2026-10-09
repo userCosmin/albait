@@ -1,18 +1,18 @@
-// Cash registers ALBA IT distributes, per the Zeus Service partner network
-// (județul Alba). Specs are copied from the importer's product pages and the
-// official Romanian user manuals linked below — no values are inferred.
-// Prices are intentionally absent: ALBA IT has not confirmed a public price list.
+// The cash registers ALBA IT sells: the four models listed by the owner on
+// albait-website.pages.dev/case-de-marcat. Specs are copied from the Romanian
+// importers' product pages and official user manuals linked on each product
+// (Zeus Service for Daisy, Milo Trading 2000 for Incotex) — no values are
+// inferred. Prices are intentionally absent: no public price list confirmed.
 import type { ImageMetadata } from 'astro';
 
 import compactSCutout from '@/assets/products/compact-s-cutout.png';
 import compactSAngle from '@/assets/products/compact-s-angle-cutout.png';
 import compactSCar from '@/assets/products/compact-s-car-mounted.jpg';
 import compactSHand from '@/assets/products/compact-s-car-hand.jpg';
-import compactMCutout from '@/assets/products/compact-m-cutout.png';
-import compactMBack from '@/assets/products/compact-m-back.jpg';
-import perfectMCutout from '@/assets/products/perfect-m-cutout.png';
-import perfectMTop from '@/assets/products/perfect-m-top-cutout.png';
+import succesM7 from '@/assets/products/succes-m7-cutout.webp';
+import succesM4 from '@/assets/products/succes-m4-cutout.webp';
 import expertSx from '@/assets/products/expert-sx.jpg';
+import expertSxCutout from '@/assets/products/expert-sx-02-cutout.webp';
 import expertSxFront from '@/assets/products/expert-sx-front.jpg';
 import expertSxTop from '@/assets/products/expert-sx-top.jpg';
 
@@ -26,7 +26,9 @@ export type Capability =
   | 'pc'
   | 'bluetooth'
   | 'gprs-anaf'
-  | 'imprimanta-fiscala';
+  | 'imprimanta-fiscala'
+  | 'ethernet'
+  | 'wifi';
 
 export const capabilityLabels: Record<Capability, string> = {
   portabil: 'Portabilă',
@@ -39,6 +41,8 @@ export const capabilityLabels: Record<Capability, string> = {
   bluetooth: 'Bluetooth',
   'gprs-anaf': 'Modem GPRS pentru ANAF',
   'imprimanta-fiscala': 'Funcție imprimantă fiscală',
+  ethernet: 'Ethernet',
+  wifi: 'Wi-Fi',
 };
 
 export interface ProductImage {
@@ -52,7 +56,9 @@ export interface Product {
   slug: string;
   name: string;
   model: string;
-  brand: 'Daisy';
+  brand: 'Daisy' | 'Incotex';
+  /** importer whose product page/manual the specs come from */
+  sourceLabel: string;
   tagline: string;
   summary: string;
   bestFor: string[];
@@ -83,10 +89,140 @@ const common = {
 
 export const products: Product[] = [
   {
+    slug: 'incotex-succes-m7',
+    name: 'Incotex Succes M7',
+    model: 'Succes M7',
+    brand: 'Incotex',
+    sourceLabel: 'Milo Trading 2000',
+    tagline: 'Tejgheaua completă, cu toate porturile.',
+    summary:
+      'Casă de marcat electronică fiscală cu jurnal electronic și export de fișiere XML semnate pentru raportările ANAF. Staționară, destinată comerțului și prestărilor de servicii, dar poate lucra și portabil datorită acumulatorului intern. Se conectează la calculator, cântar, scanner, sertar de bani și rețea prin USB, serial, Ethernet și port dedicat de sertar.',
+    bestFor: ['Magazine alimentare și nealimentare', 'Vânzare la gramaj', 'Produse cu cod de bare', 'Cafenele, restaurante, prestări servicii'],
+    capabilities: ['acumulator', 'sertar-bani', 'cantar', 'cititor-coduri', 'pc', 'ethernet', 'imprimanta-fiscala'],
+    highlights: [
+      {
+        title: 'Porturi pentru tot ce e pe tejghea',
+        text: 'Două porturi seriale (RJ-11) pentru PC, scanner, cântar sau afișaj extern, port dedicat de sertar (RJ-14), USB, PS/2 pentru tastatură externă și Ethernet.',
+      },
+      {
+        title: 'Lucrează și fără priză',
+        text: 'Acumulator intern de 7,4 V / 1800 mAh: până la 60 de ore în standby sau 40.000 de linii tipărite.',
+      },
+      {
+        title: '38 de taste, 8 cote TVA',
+        text: 'Tastatură cu 12 taste numerice și 26 de funcții, până la 32.190 de articole, 100 de grupe și 10 casieri cu drepturi programabile.',
+      },
+      {
+        title: 'Imprimantă termică rapidă',
+        text: 'Imprimantă termică Seiko de 75 mm/s, hârtie de 57 mm, 38 de caractere pe linie și încărcare EasyLoad a rolei.',
+      },
+    ],
+    specs: [
+      { label: 'Tip', value: 'Casă de marcat staționară, cu funcționare portabilă' },
+      { label: 'Articole (PLU)', value: '23.980 – 32.190, în funcție de setări (cod de bare, stoc); denumire de 38 de caractere' },
+      { label: 'Grupe', value: '100' },
+      { label: 'Cote TVA', value: '8 (6 programabile)' },
+      { label: 'Operatori', value: '10, cu drepturi programabile' },
+      { label: 'Metode de plată', value: '10 (2 programabile)' },
+      { label: 'Clienți programabili', value: '200 (CUI/CIF, denumire, adresă pe bon)' },
+      { label: 'Tastatură', value: '38 de taste (12 numerice, 26 funcții)' },
+      { label: 'Afișaje', value: 'Operator și client LCD grafic 128 × 32 px, iluminate' },
+      { label: 'Imprimantă', value: 'Termică Seiko LTP01-245-12, 75 mm/s, 38 caractere pe linie' },
+      { label: 'Rolă hârtie', value: '57 mm, încărcare EasyLoad' },
+      { label: 'Porturi', value: 'USB (PC) · USB host (export XML) · 2 × serial RJ-11 (PC, scanner, cântar, afișaj) · sertar RJ-14 · PS/2 · Ethernet' },
+      { label: 'Sertar de bani', value: 'Da, port dedicat RJ-14' },
+      { label: 'Jurnal electronic', value: 'Card microSD 8 GB' },
+      { label: 'Memorie fiscală', value: '1.830 rapoarte zilnice' },
+      { label: 'Modul criptografic', value: 'TPM SLB 97601.2 (Infineon), Common Criteria EAL 4' },
+      { label: 'Procesor', value: 'STM32F103VCT, 32 biți' },
+      { label: 'Raportare ANAF', value: 'Export XML semnat; Ethernet pentru transferul fișierelor .xml' },
+      { label: 'Mod de lucru', value: 'Offline și imprimantă fiscală' },
+      { label: 'Logo pe bon', value: '384 × 144 px' },
+      { label: 'Acumulator', value: 'Li-Ion 7,4 V, 1800 mAh (max. 60 h standby sau 40.000 linii)' },
+      { label: 'Alimentare', value: 'Alimentator extern 100–240 V c.a. / 9 V' },
+      { label: 'Temperatură de lucru', value: '−10 °C … +45 °C, umiditate 20 – 80 %' },
+      { label: 'Dimensiuni', value: '223 × 196 × 80 mm' },
+      { label: 'Greutate', value: '950 g' },
+    ],
+    images: [{ src: succesM7, alt: 'Casa de marcat Incotex Succes M7 neagră, cu tastatură mare și imprimantă termică', kind: 'cutout' }],
+    manualUrl: 'https://milo-trading.ro/wp-content/uploads/2018/05/Manual-Utilizare-SUCCES-M7-2018.pdf',
+    sourceUrl: 'https://milo-trading.ro/incotex-succes-m7/',
+    keyFigures: [
+      { value: '38', label: 'taste' },
+      { value: 'RJ-14', label: 'sertar de bani' },
+      { value: 'ETH', label: 'Ethernet' },
+    ],
+  },
+  {
+    slug: 'incotex-succes-m4',
+    name: 'Incotex Succes M4',
+    model: 'Succes M4',
+    brand: 'Incotex',
+    sourceLabel: 'Milo Trading 2000',
+    tagline: 'Compactă, cu afișaj mare pentru operator.',
+    summary:
+      'Casă de marcat fiscală cu jurnal electronic pe card microSD și export de fișiere XML semnate pentru ANAF. Staționară, pentru comerț și prestări servicii, cu acumulator intern pentru lucru portabil. Afișaj operator 128 × 64 px, Wi-Fi pentru conectarea la PC și două porturi seriale pentru sertar, cântar, scanner sau POS bancar.',
+    bestFor: ['Magazine mici', 'Prestări servicii', 'Puncte de lucru cu POS bancar', 'Vânzare la gramaj'],
+    capabilities: ['acumulator', 'sertar-bani', 'cantar', 'cititor-coduri', 'pc', 'wifi', 'imprimanta-fiscala'],
+    highlights: [
+      {
+        title: 'Afișaj operator mai mare',
+        text: 'Afișaj grafic iluminat de 128 × 64 px pentru operator și 128 × 32 px pentru client.',
+      },
+      {
+        title: 'Două porturi seriale, multe periferice',
+        text: 'Porturile RJ-45 acceptă PC, scanner, sertar de bani, cântar, afișaj extern sau POS bancar Verifone.',
+      },
+      {
+        title: 'Wi-Fi pentru rapoarte',
+        text: 'Conexiune Wi-Fi pentru legătura cu PC-ul și extragerea fișierelor XML; Ethernet opțional.',
+      },
+      {
+        title: 'Factură simplă',
+        text: 'Emite factură simplificată, cu CUI, denumire și adresa clientului.',
+      },
+    ],
+    specs: [
+      { label: 'Tip', value: 'Casă de marcat staționară, cu funcționare portabilă' },
+      { label: 'Articole (PLU)', value: '23.980 – 32.190, în funcție de setări (cod de bare, stoc); denumire de 38 de caractere' },
+      { label: 'Grupe', value: '100' },
+      { label: 'Cote TVA', value: '8 (6 programabile)' },
+      { label: 'Operatori', value: '10, cu drepturi programabile' },
+      { label: 'Metode de plată', value: '10 (2 programabile)' },
+      { label: 'Clienți programabili', value: '200 (CUI/CIF, denumire, adresă)' },
+      { label: 'Tastatură', value: '30 de taste (12 numerice, 18 funcții)' },
+      { label: 'Afișaje', value: 'Operator LCD grafic 128 × 64 px · Client LCD grafic 128 × 32 px, iluminate' },
+      { label: 'Imprimantă', value: 'Termică LTP01-245-12, 75 mm/s, 38 caractere pe linie' },
+      { label: 'Rolă hârtie', value: '57 mm, încărcare EasyLoad' },
+      { label: 'Porturi', value: 'USB (PC) · USB host (export XML) · 2 × serial RJ-45 (PC, scanner, sertar, cântar, afișaj, POS Verifone) · Wi-Fi · Ethernet opțional' },
+      { label: 'Sertar de bani', value: 'Da, prin port serial RJ-45' },
+      { label: 'Jurnal electronic', value: 'Card microSD 8 GB' },
+      { label: 'Memorie fiscală', value: '1.830 rapoarte zilnice' },
+      { label: 'Modul criptografic', value: 'TPM SLB 97601.2 (Infineon), Common Criteria EAL 4' },
+      { label: 'Procesor', value: 'STM32F103VCT, 32 biți' },
+      { label: 'Raportare ANAF', value: 'Export XML semnat' },
+      { label: 'Mod de lucru', value: 'Offline și imprimantă fiscală' },
+      { label: 'Acumulator', value: 'Li-Ion 7,4 V, 1800 mAh (conform manualului)' },
+      { label: 'Alimentare', value: 'Alimentator extern 100–240 V c.a. / 9 V' },
+      { label: 'Temperatură de lucru', value: '−10 °C … +45 °C, umiditate 20 – 80 %' },
+      { label: 'Dimensiuni', value: '240 × 111 × 82 mm' },
+      { label: 'Greutate', value: '700 g' },
+    ],
+    images: [{ src: succesM4, alt: 'Casa de marcat Incotex Succes M4 roșu cu negru, cu afișaj albastru și rolă de hârtie', kind: 'cutout' }],
+    manualUrl: 'https://milo-trading.ro/wp-content/uploads/2020/07/Manual-Utilizare-INCOTEX-777-2019_09.pdf',
+    sourceUrl: 'https://milo-trading.ro/incotex-succes-m4-casa-de-marcat-cu-jurnal-electronic/',
+    keyFigures: [
+      { value: '700 g', label: 'greutate' },
+      { value: 'Wi-Fi', label: 'conectare PC' },
+      { value: '128×64', label: 'afișaj operator' },
+    ],
+  },
+  {
     slug: 'daisy-compact-s',
     name: 'Daisy Compact S',
     model: 'Compact S 01',
     brand: 'Daisy',
+    sourceLabel: 'Zeus Service',
     tagline: 'Casa de marcat care încape în palmă.',
     summary:
       'Casă de marcat portabilă, recomandată de producător pentru comerț ambulant și ridesharing. Acumulator Li-Ion de 2200 mAh, încărcare prin micro USB, de la bricheta mașinii (adaptor opțional) sau de la un power bank. Trimite automat rapoartele XML la serverul ANAF după raportul Z.',
@@ -141,137 +277,11 @@ export const products: Product[] = [
     ],
   },
   {
-    slug: 'daisy-compact-m',
-    name: 'Daisy Compact M',
-    model: 'Compact M 01',
-    brand: 'Daisy',
-    tagline: 'Taste mari pentru un ritm alert.',
-    summary:
-      'Casă de marcat fiscală cu jurnal electronic și acumulator Li-Ion de 2200 mAh, staționară sau mobilă, cu taste mari și afișaje generoase. Recomandată de producător pentru un punct de lucru fix cu intensitate mare a emiterii bonurilor. Avizată conform noii legislații (aviz nr. 42 din 24.08.2018).',
-    bestFor: ['Punct de lucru fix', 'Volum mare de bonuri', 'Chioșcuri și magazine mici'],
-    capabilities: ['acumulator', 'pc', 'bluetooth', 'gprs-anaf', 'imprimanta-fiscala'],
-    highlights: [
-      {
-        title: 'Rolă de 30 m',
-        text: 'Rolă de hârtie de 57 mm × 30 m și sistem EASY LOAD pentru schimbarea rapidă a rolei.',
-      },
-      {
-        title: 'Modem GPRS integrat',
-        text: 'Modemul de pe placa de bază asigură comunicația GPRS cu serverul ANAF, fără dispozitive suplimentare.',
-      },
-      {
-        title: 'Taste mari, afișaje clare',
-        text: '31 de taste, afișaj grafic operator 132 × 48 px și afișaj client 132 × 24 px.',
-      },
-      {
-        title: 'Rapoarte la îndemână',
-        text: 'Conectare la PC prin micro USB (aplicația Daisy Manager) și slot SD pentru exportul fișierelor XML lunare.',
-      },
-    ],
-    specs: [
-      common.plu,
-      { label: 'Departamente', value: '95 + 4' },
-      common.tva,
-      common.operatori,
-      { label: 'Alimentare', value: 'Adaptor 220 V c.a. – 5 V c.c. 2 A, micro USB' },
-      { label: 'Acumulator', value: 'Li-Ion 3,7 V, 2200 mAh (inclus)' },
-      { label: 'Tastatură', value: '31 de taste' },
-      common.imprimanta,
-      { label: 'Afișaje', value: 'Operator LCD grafic 132 × 48 px · Client LCD grafic 132 × 24 px' },
-      { label: 'Porturi', value: 'Micro USB (PC) · slot SD pentru export XML' },
-      common.plata,
-      common.clienti,
-      common.jurnal,
-      common.memorie,
-      common.crypto,
-      { label: 'Bluetooth', value: 'Da, pentru conectarea la PC' },
-      { label: 'Modem GSM/GPRS', value: 'Integrat, pentru comunicația cu serverul ANAF' },
-      { label: 'Rolă hârtie', value: '57 mm × 30 m' },
-      { label: 'Sertar de bani / cântar / cititor coduri', value: 'Nu' },
-      { label: 'Temperatură de lucru', value: '0 °C … 45 °C, umiditate 10 – 90 %' },
-      { label: 'Dimensiuni', value: '195 × 180 × 65 mm' },
-      { label: 'Greutate', value: '475 g cu acumulator' },
-    ],
-    images: [
-      { src: compactMCutout, alt: 'Casa de marcat Daisy Compact M neagră, cu taste mari și afișaj client', kind: 'cutout' },
-      { src: compactMBack, alt: 'Daisy Compact M văzută din spate, cu afișajul pentru client și imprimanta', kind: 'photo' },
-    ],
-    manualUrl: 'https://www.zeusservice.ro/media/productattachment/0/87/CompactMRomaniaUserManual20180828TRADUCERE.pdf',
-    sourceUrl: 'https://www.zeusservice.ro/casa-de-marcat-model-compact-m-01.html',
-    keyFigures: [
-      { value: '30 m', label: 'rolă de hârtie' },
-      { value: '31', label: 'taste' },
-      { value: 'GPRS', label: 'modem integrat' },
-    ],
-  },
-  {
-    slug: 'daisy-perfect-m',
-    name: 'Daisy Perfect M',
-    model: 'Perfect M 02',
-    brand: 'Daisy',
-    tagline: 'Centrul de comandă al tejghelei.',
-    summary:
-      'Casă de marcat destinată activităților cu volum mediu și mare de bonuri emise zilnic. Acceptă role de până la 35 m, deschide sertarul de bani și se conectează la cântar electronic și la cititor de coduri de bare. Tasta HELP explică informațiile afișate pe ecranul operatorului.',
-    bestFor: ['Magazine cu volum mediu și mare', 'Puncte de lucru cu sertar de bani', 'Vânzare la gramaj', 'Produse cu cod de bare'],
-    capabilities: ['acumulator', 'sertar-bani', 'cantar', 'cititor-coduri', 'pc', 'bluetooth', 'gprs-anaf', 'imprimanta-fiscala'],
-    highlights: [
-      {
-        title: 'Sertar, cântar, cititor',
-        text: 'Conector RJ45 pentru sertar de bani (6 V), port RS232 pentru cântar electronic sau cititor de coduri de bare.',
-      },
-      {
-        title: 'Role de până la 35 m',
-        text: 'Gândită pentru activitățile cu multe bonuri pe zi: schimbi rola mai rar.',
-      },
-      {
-        title: 'Tasta HELP',
-        text: 'Explică direct pe ecran informațiile afișate operatorului — util pentru casieri noi.',
-      },
-      {
-        title: 'Afișaj client 128 × 128 px',
-        text: 'Afișaj grafic generos pentru client și afișaj operator 132 × 64 px.',
-      },
-    ],
-    specs: [
-      common.plu,
-      { label: 'Departamente', value: '95 + 4' },
-      common.tva,
-      common.operatori,
-      { label: 'Alimentare', value: 'Adaptor 220 V c.a. – 7,5 V c.c. 3,5 A' },
-      { label: 'Acumulator', value: 'NiMH 6 V, 1800 mAh (inclus)' },
-      { label: 'Tastatură', value: '32 de taste, inclusiv tasta HELP' },
-      common.imprimanta,
-      { label: 'Afișaje', value: 'Operator LCD grafic 132 × 64 px · Client LCD grafic 128 × 128 px' },
-      { label: 'Porturi', value: 'RS232 (cititor coduri de bare / cântar) · USB (PC) · slot SD pentru export XML' },
-      { label: 'Sertar de bani', value: 'Da, conector RJ45 8 pini, tensiune de deschidere 6 V' },
-      common.plata,
-      common.clienti,
-      common.jurnal,
-      common.memorie,
-      common.crypto,
-      { label: 'Bluetooth', value: 'Activ, Bluetooth standard sau BLE' },
-      { label: 'Modem GSM/GPRS', value: 'Integrat, pentru comunicația cu serverul ANAF' },
-      { label: 'Rolă hârtie', value: '57 mm, până la 35 m' },
-      { label: 'Temperatură de lucru', value: '0 °C … 45 °C, umiditate 10 – 90 %' },
-      { label: 'Greutate', value: '870 g cu acumulator' },
-    ],
-    images: [
-      { src: perfectMCutout, alt: 'Casa de marcat Daisy Perfect M neagră, cu bon fiscal ieșit din imprimantă', kind: 'cutout' },
-      { src: perfectMTop, alt: 'Daisy Perfect M văzută de sus: imprimanta, afișajul și tastatura cu tasta HELP', kind: 'cutout' },
-    ],
-    manualUrl: 'https://www.zeusservice.ro/media/productattachment/0/92/PerfectMRomania20180803ROTraducereV115.pdf',
-    sourceUrl: 'https://www.zeusservice.ro/casa-de-marcat-model-perfect-m-02-negru.html',
-    keyFigures: [
-      { value: '35 m', label: 'rolă maximă' },
-      { value: 'RJ45', label: 'sertar de bani' },
-      { value: 'RS232', label: 'cântar / cititor' },
-    ],
-  },
-  {
     slug: 'daisy-expert-sx',
-    name: 'Daisy eXpert SX',
-    model: 'eXpert SX',
+    name: 'Daisy eXpert SX-02',
+    model: 'eXpert SX 02',
     brand: 'Daisy',
+    sourceLabel: 'Zeus Service',
     tagline: 'Fixă la tejghea, mobilă la nevoie.',
     summary:
       'Casă de marcat recomandată pentru un punct de lucru fix, care se pretează și pentru comerț ambulant: acumulator NiMH de 1800 mAh, încărcare din mașină cu adaptor opțional, port pentru cântar electronic și cititor de coduri de bare. Echipată cu toate dispozitivele necesare conectării la serverele ANAF.',
@@ -320,6 +330,7 @@ export const products: Product[] = [
       { label: 'Greutate', value: '550 g cu acumulator' },
     ],
     images: [
+      { src: expertSxCutout, alt: 'Casa de marcat Daisy eXpert SX-02 albă cu negru, afișajul indicând 326.70', kind: 'cutout' },
       { src: expertSxFront, alt: 'Daisy eXpert SX văzută din față, cu tastatura și afișajul operatorului', kind: 'photo' },
       { src: expertSx, alt: 'Casa de marcat Daisy eXpert SX albă cu negru, afișajul indicând 326.70', kind: 'photo' },
       { src: expertSxTop, alt: 'Daisy eXpert SX văzută de sus, cu imprimanta termică', kind: 'photo' },
