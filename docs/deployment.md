@@ -12,6 +12,12 @@
 | Domeniul albait.ro | **Neatins.** DNS la Hostico; site-ul vechi rămâne până decideți mutarea |
 | Repository GitHub | **De creat** (vezi pasul 1) |
 
+## Rezultate verificate (9 octombrie 2026, pe URL-ul de test)
+
+- `astro check`: 0 erori · Vitest: 17/17 · `verify-dist`: 19 pagini, toate verificările trecute · e2e în browser: 16/16
+- Lighthouse (desktop): Performance 99–100, Accessibility 100, Best Practices 100, SEO 100; CLS 0 pe pagina principală
+- Lighthouse (mobil, 4G simulat): Performance 92–100, Accessibility 100, Best Practices 100, SEO 100; LCP 1,3–3,3 s (pagina principală 2,9 s, pagina Compact S 3,3 s — peste ținta de 2,5 s în simulare; de urmărit în datele reale din Search Console)
+
 ## Comenzi
 
 | Scop | Comandă |

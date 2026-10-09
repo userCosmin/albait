@@ -25,6 +25,7 @@ npm run dev        # http://localhost:4321
 | `npm run build` | Build de producție în `dist/` |
 | `npm run test:dist` | Verifică build-ul: titluri, descrieri, canonical, H1, JSON-LD, linkuri interne, imagini, sitemap |
 | `npm run verify` | Toate cele de mai sus, în ordine |
+| `npm run test:e2e -- <url>` | Teste în browser (meniu mobil, ghid de alegere, validare formular, reduced motion, fără JS); implicit pe `http://localhost:4321` |
 | `npm run deploy` | Build + `wrangler deploy` (în mod normal publicarea se face automat la push pe `main`) |
 | `npm run images` | Regenerează decupajele produselor, iconițele și imaginea Open Graph din `assets-src/` |
 | `npm run cf-typegen` | Regenerează tipurile pentru binding-urile din `wrangler.jsonc` |
